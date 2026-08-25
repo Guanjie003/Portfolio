@@ -1,7 +1,8 @@
 /**
  * ✏️ The only file you need to edit to change the whole site.
  *
- * Anything still marked TODO is a guess — read it, correct it, then delete the marker.
+ * Content is taken from Guan_Jie_Khamchan_Resume.pdf — keep the two in step when
+ * either one changes.
  */
 
 export type Social = {
@@ -41,23 +42,23 @@ export const profile = {
   /** The name on the home page — always stretched to the full width. Shorter names render bigger. */
   displayName: "Guan Jie",
   fullName: "Guan Jie Khamchan",
-  role: "Software Engineering Student",
+  role: "Full-stack Developer",
   /** One line in the meta bar under the hero. */
   tagline:
-    "Software engineering student at Mae Fah Luang University. I build full-stack web apps for coursework and side projects, and I am looking for an internship where I can do it on a real team.",
-  availability: "Open to internships",
+    "Software engineering student at Mae Fah Luang University, working across React and TypeScript on the front end through to Node and Spring Boot behind it — and a deep learning pipeline on the side.",
+  availability: "Open to a 5-month co-op · Jan–May 2027 · Bangkok",
   email: "engguanjie@gmail.com",
   /** Drop resume.pdf into /public and this link works immediately. */
   resumeUrl: "/resume.pdf",
   about: [
-    "I am in my third year of software engineering at Mae Fah Luang University. Most of what I know came from building things end to end rather than from lectures — course projects and side projects, front end through to the service behind it.",
-    "I like working across the whole stack because it is the only way to see how a decision on one side lands on the other. What I want next is an internship where the code has real users and someone more experienced reviews my pull requests.",
+    "I study software engineering at Mae Fah Luang University, graduating in 2027. Most of what I know came from building things end to end rather than from lectures — a survey platform running on Docker Compose, a booking front end in Next.js, and a semantic segmentation pipeline in PyTorch.",
+    "I like working across the whole stack because it is the only way to see how a decision on one side lands on the other. What I want next is a co-op placement where the code has real users and someone more experienced reviews my pull requests.",
   ],
   facts: [
     { label: "Focus", value: "Full-stack web" },
-    { label: "Studying", value: "SE at MFU" },
-    { label: "Core stack", value: "TypeScript" },
-    { label: "Languages", value: "EN / TH" },
+    { label: "Graduating", value: "2027" },
+    { label: "Core stack", value: "React / TypeScript" },
+    { label: "Languages", value: "EN / TH / ZH" },
   ],
 } as const;
 
@@ -73,34 +74,42 @@ export const socials: Social[] = [
 export const skillGroups: SkillGroup[] = [
   {
     name: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "Java"],
+    items: ["JavaScript", "TypeScript", "Java", "Python", "SQL"],
   },
   {
-    name: "Web",
-    items: ["Next.js", "React", "Vue", "Nuxt", "NestJS", "FastAPI", "Node.js", "Tailwind"],
+    name: "Frontend",
+    items: ["React", "Next.js", "Vue.js", "Tailwind CSS", "Radix UI", "react-hook-form"],
   },
   {
-    name: "Data",
-    items: ["PostgreSQL", "MongoDB", "Supabase", "Firebase"],
+    name: "Backend",
+    items: ["Node.js", "Express", "Spring Boot", "Hibernate", "REST API design", "OpenAPI / Swagger"],
   },
   {
-    name: "ML & Infra",
-    items: ["PyTorch", "Hugging Face", "Docker", "GitLab CI", "Nginx", "Git"],
+    name: "Databases",
+    items: ["MongoDB", "Redis", "MySQL"],
+  },
+  {
+    name: "DevOps",
+    items: ["Docker", "Docker Compose", "Nginx", "GitHub Actions", "GitLab CI"],
+  },
+  {
+    name: "ML & CV",
+    items: ["PyTorch", "OpenCV", "Albumentations", "NumPy"],
   },
 ];
 
 /** Ticker that runs between sections. */
 export const marqueeItems = [
   "TypeScript",
-  "Python",
-  "Next.js",
   "React",
-  "NestJS",
-  "FastAPI",
-  "PostgreSQL",
-  "Supabase",
-  "PyTorch",
+  "Next.js",
+  "Vue.js",
+  "Node.js",
+  "Spring Boot",
+  "MongoDB",
   "Docker",
+  "PyTorch",
+  "Nginx",
 ];
 
 /**
@@ -126,14 +135,14 @@ export const projects: Project[] = [];
 export const jobs: Job[] = [
   {
     company: "Mae Fah Luang University",
-    role: "B.Eng. in Software Engineering",
-    period: "2023 — Present",
+    role: "Bachelor of Engineering, Software Engineering",
+    period: "Expected 2027",
     location: "Chiang Rai, Thailand",
-    summary: "Third year, currently taking Emerging Technology for Software Engineering.",
-    // TODO: swap these for the coursework and results you actually want to show
+    summary:
+      "Relevant coursework: Software Engineering, Web Application Development, Database Systems, Data Structures & Algorithms, Machine Learning.",
     highlights: [
-      "Course final project: a React front end on a Java service",
-      "Coursework across web development, databases and software engineering practice",
+      "MFU Software Engineer Hackathon 2025 — built a mobile sleep-tracking app in the health track with a team of four, idea to working prototype within the event",
+      "Spoken languages: Mandarin Chinese (native), Thai (fluent), English (intermediate working proficiency)",
     ],
   },
 ];
