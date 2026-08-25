@@ -14,11 +14,11 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg,#ff6b45,#ffb43a)",
-          color: "#1a0d08",
-          fontSize: 40,
+          background: "#0a0a0a",
+          color: "#ffffff",
+          fontSize: 42,
           fontWeight: 700,
-          borderRadius: 14,
+          letterSpacing: -2,
         }}
       >
         {profile.name.slice(0, 1).toUpperCase()}

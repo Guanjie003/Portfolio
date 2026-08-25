@@ -10,6 +10,7 @@ export type Social = {
 };
 
 export type Project = {
+  no: string;
   slug: string;
   title: string;
   tagline: string;
@@ -17,11 +18,7 @@ export type Project = {
   year: string;
   role: string;
   stack: string[];
-  featured: boolean;
   links: { demo?: string; repo?: string; caseStudy?: string };
-  /** ไล่สีของการ์ด (ใช้แทนรูปได้ หรือใส่ image เป็น path ใน /public) */
-  gradient: [string, string];
-  image?: string;
 };
 
 export type Job = {
@@ -40,33 +37,36 @@ export type SkillGroup = {
 
 export const profile = {
   name: "Guanjie",
+  /** ชื่อบนหน้าแรก — ยืดเต็มความกว้างจอเสมอ ยิ่งสั้นยิ่งตัวใหญ่ */
+  displayName: "Guanjie",
   fullName: "Guanjie",
   role: "Full-Stack Developer",
-  /** ประโยคเปิดหน้า Hero — สั้น คม บอกว่าคุณทำอะไรให้ใคร */
-  headline: "ผมสร้างเว็บแอปที่ใช้งานจริง ตั้งแต่ดีไซน์จนถึงดีพลอย",
-  headlineAccent: "ใช้งานจริง",
-  subheadline:
-    "Full-stack developer ที่สนใจงาน product — ออกแบบ UI ที่อ่านง่าย เขียน frontend/backend ให้ maintain ต่อได้ และส่งขึ้น production ด้วย CI/CD",
+  /** ประโยคสั้นในแถบล่างของหน้าแรก */
+  tagline:
+    "ออกแบบ เขียน และส่งเว็บแอปขึ้น production ด้วยตัวคนเดียว ตั้งแต่หน้าจอแรกจนถึง pipeline สุดท้าย",
   location: "Chiang Rai, Thailand",
-  availability: "เปิดรับงานฟรีแลนซ์และตำแหน่งประจำ",
+  availability: "Available for work",
   email: "engguanjie@gmail.com",
   /** วางไฟล์ resume.pdf ไว้ใน /public แล้วลิงก์จะทำงานทันที */
   resumeUrl: "/resume.pdf",
   about: [
     "ผมเริ่มจากความอยากรู้ว่าเว็บที่ใช้ทุกวันทำงานยังไง แล้วก็ไม่ได้หยุดเขียนโค้ดอีกเลย ทุกวันนี้ผมทำงานครบทั้งสาย — วางโครงหน้าจอใน Figma, ต่อ API, ดูแล pipeline จนขึ้น production",
-    "สิ่งที่ผมให้ความสำคัญที่สุดคือ ความเร็วในการโหลด, การเข้าถึงได้ (accessibility) และโค้ดที่คนอื่นอ่านต่อได้ เพราะโปรเจคที่ดีคือโปรเจคที่ยังแก้ต่อได้ในอีกหนึ่งปี",
+    "สิ่งที่ผมให้ความสำคัญที่สุดคือความเร็วในการโหลด การเข้าถึงได้ และโค้ดที่คนอื่นอ่านต่อได้ เพราะโปรเจคที่ดีคือโปรเจคที่ยังแก้ต่อได้ในอีกหนึ่งปี",
   ],
   facts: [
-    { label: "ประสบการณ์", value: "3+ ปี" },
-    { label: "โปรเจคที่ส่งมอบ", value: "20+" },
-    { label: "ถนัดที่สุด", value: "TypeScript" },
-    { label: "ภาษา", value: "ไทย / English" },
+    { label: "Experience", value: "3+ ปี" },
+    { label: "Projects shipped", value: "20+" },
+    { label: "Core stack", value: "TypeScript" },
+    { label: "Languages", value: "ไทย / EN" },
   ],
 } as const;
 
+/** คำใหญ่ที่เรียงซ้อนกันกลางหน้า */
+export const statement = ["Design.", "Code.", "Deploy."];
+
 export const socials: Social[] = [
-  { label: "GitHub", href: "https://github.com/Guanjie003", handle: "@Guanjie003" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-handle", handle: "/in/your-handle" },
+  { label: "GitHub", href: "https://github.com/Guanjie003", handle: "Guanjie003" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/your-handle", handle: "your-handle" },
   { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
 ];
 
@@ -89,8 +89,23 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+/** ข้อความวิ่งคั่นระหว่างเซคชัน */
+export const marqueeItems = [
+  "TypeScript",
+  "Next.js",
+  "React",
+  "Vue",
+  "Node.js",
+  "PostgreSQL",
+  "Docker",
+  "Figma",
+  "Tailwind",
+  "CI / CD",
+];
+
 export const projects: Project[] = [
   {
+    no: "01",
     slug: "marketplace",
     title: "Zdrive Marketplace",
     tagline: "แพลตฟอร์มซื้อขายรถมือสอง",
@@ -99,11 +114,10 @@ export const projects: Project[] = [
     year: "2025",
     role: "Design + Full-stack",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind"],
-    featured: true,
     links: { demo: "#", repo: "#" },
-    gradient: ["#ff6b45", "#ffb43a"],
   },
   {
+    no: "02",
     slug: "admin-suite",
     title: "Ops Admin Suite",
     tagline: "แดชบอร์ดหลังบ้านสำหรับทีมปฏิบัติการ",
@@ -112,11 +126,10 @@ export const projects: Project[] = [
     year: "2024",
     role: "Frontend lead",
     stack: ["Vue", "Vuex", "Chart.js", "Docker"],
-    featured: true,
     links: { demo: "#", caseStudy: "#" },
-    gradient: ["#3b82f6", "#22d3ee"],
   },
   {
+    no: "03",
     slug: "attendance",
     title: "Face Check-in",
     tagline: "ระบบลงเวลาด้วยการสแกนใบหน้า",
@@ -125,11 +138,10 @@ export const projects: Project[] = [
     year: "2024",
     role: "Full-stack",
     stack: ["Vue", "face-api.js", "Node.js", "MongoDB"],
-    featured: true,
     links: { repo: "#" },
-    gradient: ["#8b5cf6", "#ec4899"],
   },
   {
+    no: "04",
     slug: "design-system",
     title: "Sprout Design System",
     tagline: "ไลบรารีคอมโพเนนต์ที่ใช้ร่วมกันทั้งทีม",
@@ -138,11 +150,10 @@ export const projects: Project[] = [
     year: "2023",
     role: "Design engineer",
     stack: ["React", "Storybook", "Figma", "CSS variables"],
-    featured: false,
     links: { demo: "#" },
-    gradient: ["#10b981", "#84cc16"],
   },
   {
+    no: "05",
     slug: "queue-app",
     title: "Clinic Queue",
     tagline: "แอปจองคิวคลินิก",
@@ -151,9 +162,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "Full-stack",
     stack: ["Next.js", "Prisma", "LINE API"],
-    featured: false,
     links: { demo: "#", repo: "#" },
-    gradient: ["#f59e0b", "#ef4444"],
   },
 ];
 
@@ -161,7 +170,7 @@ export const jobs: Job[] = [
   {
     company: "Freelance",
     role: "Full-Stack Developer",
-    period: "2024 — ปัจจุบัน",
+    period: "2024 — Now",
     location: "Remote",
     summary: "รับงานพัฒนาเว็บแอปให้ลูกค้าตั้งแต่คุยความต้องการ ออกแบบ จนส่งขึ้น production",
     highlights: [
@@ -193,11 +202,11 @@ export const jobs: Job[] = [
 ];
 
 export const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { no: "01", label: "Work", href: "#work" },
+  { no: "02", label: "About", href: "#about" },
+  { no: "03", label: "Capabilities", href: "#capabilities" },
+  { no: "04", label: "Experience", href: "#experience" },
+  { no: "05", label: "Contact", href: "#contact" },
 ];
 
 /** ใช้ตอน deploy จริง — เปลี่ยนเป็นโดเมนของคุณ */

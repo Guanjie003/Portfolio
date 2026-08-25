@@ -3,117 +3,189 @@
 /* ธีมมืด/สว่าง คุมด้วย attribute data-theme บน <html> */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ---------- Design tokens ---------- */
+/* ---------- Design tokens ----------
+   ดีไซน์นี้เป็นขาว-ดำล้วน ไม่มีสีเน้น น้ำหนักทั้งหมดมาจากขนาดตัวอักษรและเส้น */
 :root {
-  --bg: #fbfaf9;
-  --bg-soft: #f3efeb;
-  --surface: #ffffff;
-  --surface-2: #f7f4f1;
-  --border: #e5ded7;
-  --text: #17130f;
-  --muted: #6b625a;
-  --accent: #cf4a24;
-  --accent-hover: #b23d1b;
-  --accent-soft: rgba(207, 74, 36, 0.1);
-  --on-accent: #ffffff;
-  --ring: rgba(207, 74, 36, 0.45);
-  --shadow: 0 1px 2px rgba(23, 19, 15, 0.05), 0 12px 32px -12px rgba(23, 19, 15, 0.15);
-  --grid-line: rgba(23, 19, 15, 0.05);
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --muted: #767676;
+  --line: #e2e2e2;
+  --line-strong: #0a0a0a;
 }
 
 [data-theme="dark"] {
-  --bg: #100e0d;
-  --bg-soft: #171412;
-  --surface: #191614;
-  --surface-2: #201c19;
-  --border: #2e2825;
-  --text: #f6f2ee;
-  --muted: #a89d94;
-  --accent: #ff6b45;
-  --accent-hover: #ff8465;
-  --accent-soft: rgba(255, 107, 69, 0.14);
-  --on-accent: #1a0d08;
-  --ring: rgba(255, 107, 69, 0.5);
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -16px rgba(0, 0, 0, 0.7);
-  --grid-line: rgba(246, 242, 238, 0.05);
+  --paper: #0a0a0a;
+  --ink: #f4f4f4;
+  --muted: #8c8c8c;
+  --line: #242424;
+  --line-strong: #f4f4f4;
+}
+
+/* บล็อกกลับสี — สลับ paper/ink เฉพาะใน subtree นี้
+   คลาส bg-paper / text-ink / border-line ที่อยู่ข้างในจะกลับสีตามอัตโนมัติ */
+.invert {
+  --paper: #0a0a0a;
+  --ink: #f4f4f4;
+  --muted: #8c8c8c;
+  --line: #242424;
+  --line-strong: #f4f4f4;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+[data-theme="dark"] .invert {
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --muted: #767676;
+  --line: #e2e2e2;
+  --line-strong: #0a0a0a;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-soft: var(--bg-soft);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-line: var(--border);
-  --color-ink: var(--text);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-soft: var(--accent-soft);
-  --color-on-accent: var(--on-accent);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
 
   --font-sans: var(--font-inter), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-display), Georgia, serif;
-  --font-mono: var(--font-mono-code), ui-monospace, SFMono-Regular, monospace;
-
-  --radius-card: 1rem;
+  --font-display: var(--font-display), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ---------- Base ---------- */
-* {
-  border-color: var(--border);
-}
-
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-inter), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid currentColor;
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
-/* ---------- Utilities ---------- */
-.section-shell {
-  width: 100%;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
+/* ---------- Type ---------- */
+.display {
+  font-family: var(--font-display), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.85;
+  text-transform: none;
 }
 
-.grid-backdrop {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 40%, transparent 100%);
+/* ชื่อบนหน้าแรก — กว้างเต็มจอเสมอไม่ว่าจอกว้างแค่ไหน */
+.display-hero {
+  font-size: clamp(3.2rem, 13.2vw, 15rem);
 }
 
-.text-gradient {
-  background: linear-gradient(120deg, var(--accent), var(--text) 70%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.display-xl {
+  font-size: clamp(2.6rem, 10.5vw, 12rem);
+}
+
+.display-lg {
+  font-size: clamp(2rem, 5.2vw, 4.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.thai-tight {
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Layout ---------- */
+.shell {
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Work rows ---------- */
+.work-row {
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .work-row:hover {
+    background-color: var(--ink);
+    color: var(--paper);
+  }
+  .work-row:hover .work-muted {
+    color: var(--paper);
+    opacity: 0.65;
+  }
+}
+
+/* ภาพตัวอย่างที่ลอยตามเมาส์ตอน hover แถวผลงาน */
+.hover-thumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 22rem;
+  height: 14rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.94);
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-thumb[data-active="true"] {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* ---------- Scroll reveal ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(14px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -122,14 +194,37 @@ body {
   transform: none;
 }
 
+/* บรรทัดใหญ่โผล่ขึ้นมาจากด้านล่างผ่านหน้ากาก
+   หน้ากากต้องเป็น overflow: hidden ไม่ใช่ clip-path เพราะ clip-path ทำให้
+   IntersectionObserver มองว่าพื้นที่ของ element เป็นศูนย์ แล้วจะไม่ trigger ตัวเอง */
+.reveal-mask {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.reveal-mask > * {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-mask.is-visible > * {
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .reveal,
+  .reveal-mask > * {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .marquee {
+    animation: none;
   }
   *,
   *::before,

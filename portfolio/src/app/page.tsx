@@ -1,11 +1,14 @@
 import About from "@/components/About";
+import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import IndexList from "@/components/IndexList";
+import Marquee from "@/components/Marquee";
 import Nav from "@/components/Nav";
-import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
+import Statement from "@/components/Statement";
+import Work from "@/components/Work";
 import { profile, projects, siteUrl, socials } from "@/content/profile";
 
 const personSchema = {
@@ -30,9 +33,12 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <IndexList />
+        <Statement />
+        <Marquee />
+        <Work />
         <About />
-        <Skills />
-        <Projects />
+        <Capabilities />
         <Experience />
         <Contact />
       </main>

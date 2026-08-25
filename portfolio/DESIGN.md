@@ -4,101 +4,147 @@
 
 ## 1. คอนเซปต์
 
-> **"Warm minimal, ผลงานเป็นพระเอก"**
+> **"Brutalist editorial — ตัวอักษรคือภาพ"**
 
-หน้าเว็บพอร์ตโฟลิโอส่วนใหญ่ใช้ดำ-เทา-น้ำเงิน ซึ่งอ่านง่ายแต่จำไม่ได้ เว็บนี้เลยเลือกฐานสีเป็น **นิวทรัลโทนอุ่น**
-(ออกน้ำตาลอ่อน ๆ แทนเทากลาง) แล้วใช้ **signal orange** เป็นสีเน้นเพียงสีเดียว
-ผลคือหน้าจอดูอบอุ่นและจำได้ แต่ยังคงความสุภาพพอสำหรับส่งให้ HR
+อ้างอิงแนวทางจากเว็บอย่าง [paulkalkbrenner.net](https://www.paulkalkbrenner.net) คือทิ้งทุกอย่างที่ไม่จำเป็น
+เหลือแค่ **ขาว ดำ และตัวอักษร** แล้วเล่นกับ *ขนาด* ให้สุดทาง ผลคือหน้าเว็บที่ดูมั่นใจ จำได้ และโหลดเร็ว
+เพราะแทบไม่มีอะไรให้โหลดนอกจากฟอนต์
 
-หลักที่ยึด 3 ข้อ:
+หลักที่ยึด 4 ข้อ:
 
-1. **สีเน้นใช้ให้น้อย** — ส้มใช้กับ CTA, ป้ายหมวด, และ hover เท่านั้น ไม่ใช้กับพื้นหลังใหญ่
-2. **ลำดับสายตาต้องชัด** — ทุกเซคชันมี `index → title → description → content` รูปแบบเดียวกัน
-3. **มูฟเมนต์ต้องเบา** — reveal ตอนเลื่อนถึงเท่านั้น ไม่มีอนิเมชันวิ่งตลอดเวลา
+1. **ไม่มีสีเน้นเลย** — ลำดับความสำคัญมาจากขนาดตัวอักษรและเส้น hairline ไม่ใช่สี
+2. **ตัวใหญ่ต้องใหญ่จริง** — ชื่อบนหน้าแรกกว้างเต็มจอเสมอ ไม่ว่าจอกว้างแค่ไหน
+3. **กลับขั้วเพื่อแบ่งจังหวะ** — เซคชันสำคัญ (statement, contact) พลิกเป็นพื้นดำตัวขาว แทนการใช้สีพื้นหลังอ่อน
+4. **มูฟเมนต์ต้องเบา** — เผยเนื้อหาตอนเลื่อนถึงเท่านั้น ไม่มีอะไรกระพริบตลอดเวลา
 
 ## 2. Color tokens
 
-ประกาศเป็น CSS custom property ใน [`src/app/globals.css`](src/app/globals.css)
-แล้ว map เข้า Tailwind ผ่าน `@theme inline` → ใช้เป็นคลาสได้เลย เช่น `bg-surface`, `text-muted`, `border-line`
+มีแค่ 4 token ต่อธีม ประกาศเป็น CSS custom property ใน [`src/app/globals.css`](src/app/globals.css)
+แล้ว map เข้า Tailwind ผ่าน `@theme inline` → ใช้เป็นคลาสได้เลย
 
 | Token | Tailwind class | Light | Dark | ใช้ตอนไหน |
 | --- | --- | --- | --- | --- |
-| `--bg` | `bg-bg` | `#fbfaf9` | `#100e0d` | พื้นหลังหลักของหน้า |
-| `--bg-soft` | `bg-bg-soft` | `#f3efeb` | `#171412` | เซคชันสลับสีเพื่อแบ่งจังหวะ |
-| `--surface` | `bg-surface` | `#ffffff` | `#191614` | การ์ด, nav ตอน scroll |
-| `--surface-2` | `bg-surface-2` | `#f7f4f1` | `#201c19` | ชิป/แท็กในการ์ด |
-| `--border` | `border-line` | `#e5ded7` | `#2e2825` | เส้นขอบทั้งหมด |
-| `--text` | `text-ink` | `#17130f` | `#f6f2ee` | ตัวอักษรหลัก |
-| `--muted` | `text-muted` | `#6b625a` | `#a89d94` | คำอธิบาย, meta |
-| `--accent` | `text-accent` / `bg-accent` | `#cf4a24` | `#ff6b45` | CTA, ลิงก์, hover |
-| `--on-accent` | `text-on-accent` | `#ffffff` | `#1a0d08` | ตัวอักษรบนพื้นส้ม |
+| `--paper` | `bg-paper` | `#ffffff` | `#0a0a0a` | พื้นหลัง |
+| `--ink` | `text-ink` / `bg-ink` | `#0a0a0a` | `#f4f4f4` | ตัวอักษรหลัก |
+| `--muted` | `text-muted` | `#767676` | `#8c8c8c` | คำอธิบาย, meta, label |
+| `--line` | `border-line` | `#e2e2e2` | `#242424` | เส้นคั่นทั้งหมด |
 
-> สีส้มในธีมสว่างเข้มกว่าธีมมืดโดยตั้งใจ — เพื่อให้คอนทราสต์กับพื้นขาวผ่านเกณฑ์ WCAG AA (≥ 4.5:1)
+### `.invert` — บล็อกกลับขั้ว
 
-**สลับธีม:** คุมด้วย `data-theme="light" | "dark"` บน `<html>`
-สคริปต์เล็ก ๆ ใน `layout.tsx` อ่านค่าจาก `localStorage` (fallback เป็น `prefers-color-scheme`) ก่อนหน้าจอวาด
-เพื่อไม่ให้เห็นจอกระพริบตอนโหลด
+คลาสเดียวที่พลิกทั้งบล็อก โดย **นิยาม token ชุดใหม่ทับใน subtree นั้น**:
+
+```css
+.invert { --paper: #0a0a0a; --ink: #f4f4f4; --muted: #8c8c8c; --line: #242424;
+          background-color: var(--paper); color: var(--ink); }
+[data-theme="dark"] .invert { --paper: #ffffff; --ink: #0a0a0a; /* ... */ }
+```
+
+ข้อดีคือคลาส Tailwind ที่อยู่ข้างใน (`text-muted`, `border-line`, `bg-ink`) กลับสีตามเองทั้งหมด
+ไม่ต้องเขียน `dark:` หรือ variant ซ้อนเลย ใช้กับเซคชัน Statement และ Contact
+
+**สลับธีม:** คุมด้วย `data-theme="light" | "dark"` บน `<html>` สคริปต์เล็ก ๆ ใน `layout.tsx`
+อ่านค่าจาก `localStorage` (fallback เป็น `prefers-color-scheme`) ก่อนหน้าจอวาด เพื่อไม่ให้เห็นจอกระพริบ
+
+> อยากได้สีเน้นกลับมา? เพิ่ม `--accent` หนึ่งตัวใน `:root` แล้วใช้กับลิงก์และ label — โครงที่เหลือไม่ต้องแตะ
 
 ## 3. Typography
 
+ฟอนต์เดียวทั้งเว็บ (บวกฟอนต์ไทย) — ไม่มี mono ไม่มี serif เพราะดีไซน์นี้ให้ *น้ำหนักและขนาด* เป็นตัวแยกลำดับ
+
 | บทบาท | ฟอนต์ | ใช้กับ |
 | --- | --- | --- |
-| Sans (หลัก) | **Inter** | เนื้อหาทั้งหมด |
+| Display | **Inter Tight** Bold | ชื่อ, หัวเซคชัน, ชื่อโปรเจค |
+| Body | **Inter** | เนื้อหาทั้งหมด |
 | Thai | **Noto Sans Thai** | fallback อัตโนมัติสำหรับตัวอักษรไทย |
-| Display | **Instrument Serif** *(italic)* | เฉพาะคำที่เน้นในหัวข้อ Hero |
-| Mono | **JetBrains Mono** | ป้ายหมวด, ปี, meta |
 
-Type scale (มือถือ → เดสก์ท็อป):
+คลาสสำเร็จรูปใน `globals.css`:
 
 ```
-Hero h1   text-4xl → text-7xl   font-semibold  tracking-tight  leading-[1.12]
-Section h2  text-3xl → text-4xl   font-semibold  tracking-tight
-Card h3   text-xl  → text-3xl   font-semibold
-Body    text-base → text-lg   leading-relaxed  text-muted
-Meta    text-xs         font-mono  uppercase  tracking-[0.16em]
+.display       font-weight 700 · tracking -0.045em · leading 0.85
+.display-hero  clamp(3.2rem, 13.2vw, 15rem)
+.display-xl    clamp(2.6rem, 10.5vw, 12rem)    ← statement
+.display-lg    clamp(2rem, 5.2vw, 4.5rem)      ← หัวเซคชัน / ชื่อโปรเจค
+.label         11px · uppercase · tracking 0.2em
+.thai-tight    leading 1.15 (ตัวไทยกินความสูงมากกว่าละติน จึงบีบลง)
 ```
+
+### ชื่อที่กว้างเต็มจอเสมอ — `FitText`
+
+การไล่ `font-size` ด้วย `vw` จะพอดีแค่ความกว้างเดียว [`FitText.tsx`](src/components/FitText.tsx)
+จึงใช้ **SVG + `textLength`** แทน:
+
+```tsx
+<svg viewBox={`0 0 ${width} 100`}>
+  <text textLength={width} lengthAdjust="spacingAndGlyphs" fontSize="100">Guanjie</text>
+</svg>
+```
+
+`viewBox` ประมาณจากความกว้างเฉลี่ยของ Inter Tight (~0.5em ต่อตัวอักษร) แล้ว `textLength`
+บังคับให้พอดีเป๊ะอีกที ค่าประมาณจึงมีผลแค่กับสัดส่วนความสูง — เปลี่ยนชื่อในไฟล์ content ได้เลยโดยไม่ต้องแก้ตัวเลข
 
 ## 4. Layout & spacing
 
-- คอนเทนเนอร์: `.section-shell` = `max-width 72rem` + `padding-inline 1.5rem`
-- ระยะห่างเซคชัน: `py-20` (มือถือ) → `py-28` (เดสก์ท็อป)
-- Grid ของ่การ์ด: 1 คอลัมน์ → 2 (sm) → 4 (lg) สำหรับ Skills, และ 2 คอลัมน์สำหรับ Featured work
-- มุมโค้ง: การ์ดใหญ่ `rounded-card` (1rem), ชิป/ปุ่ม `rounded-full`
-- Breakpoints ใช้ค่ามาตรฐานของ Tailwind: `sm 640 · md 768 · lg 1024`
+- `.shell` = `padding-inline` 1.25rem (มือถือ) → 2rem (เดสก์ท็อป) — **ไม่มี max-width** เนื้อหาเต็มจอแบบเว็บ editorial
+- กริดหลักเป็น 12 คอลัมน์ (`md:grid-cols-12`) แถวผลงานและ experience วางบนกริดนี้ทั้งหมด
+- ระยะเซคชัน: `pt-20` (มือถือ) → `pt-28` (เดสก์ท็อป)
+- **ไม่มีมุมโค้ง ไม่มีเงา** — ขอบเขตทุกอย่างมาจากเส้น 1px สีเดียว
 
 ## 5. Motion
 
 | Element | พฤติกรรม |
 | --- | --- |
-| `.reveal` | fade + เลื่อนขึ้น 18px เมื่อเข้า viewport (IntersectionObserver, ยิงครั้งเดียว) |
-| `--reveal-delay` | หน่วงเป็นขั้น 80–100ms เพื่อให้การ์ดโผล่ไล่กัน |
-| Nav | เพิ่มเส้นขอบ + blur เมื่อ `scrollY > 12` |
-| Hover การ์ด | ขอบเปลี่ยนเป็นสีส้มจาง + เงานุ่ม |
-| Availability dot | `animate-ping` จุดเดียวในหน้า |
+| `.reveal` | fade + เลื่อนขึ้น 14px เมื่อเข้า viewport |
+| `.reveal-mask` | บรรทัดใหญ่เลื่อนขึ้นจากใต้หน้ากาก (`overflow: hidden` + `translateY(105%)`) |
+| `--reveal-delay` | หน่วงเป็นขั้น 60–140ms ให้บรรทัด/แถวโผล่ไล่กัน |
+| `.marquee` | ข้อความวิ่งวนซ้าย 38s หยุดเมื่อ hover |
+| `.work-row:hover` | ทั้งแถวกลับขั้วเป็นพื้นดำ + การ์ดตัวอย่างลอยตามเมาส์ |
 
-ทุกอย่างเคารพ `prefers-reduced-motion: reduce` — ถ้าผู้ใช้ปิดอนิเมชัน เนื้อหาจะแสดงทันทีโดยไม่มีทรานซิชัน
+### ทำไมไม่ใช้ IntersectionObserver
+
+เคยใช้ แล้วเจอสองปัญหา:
+
+1. **`clip-path` ทำให้ observer ตายตัวเอง** — element ที่ซ่อนด้วย `clip-path: inset(0 0 100% 0)`
+   มีพื้นที่ intersection เป็นศูนย์ observer จึงไม่มีวันรายงานว่ามันเข้า viewport เนื้อหาหายถาวร
+   (แก้ด้วยการเปลี่ยนมาใช้หน้ากาก `overflow: hidden` แทน)
+2. **ถ้า observer ไม่ยิง เนื้อหาหายทั้งหน้า** — เพราะสถานะเริ่มต้นคือซ่อน
+
+[`ScrollReveal.tsx`](src/components/ScrollReveal.tsx) จึงวัด `getBoundingClientRect()` เองบน scroll/resize
+(throttle ด้วย `requestAnimationFrame`) และถ้าการวัดพังเมื่อไหร่ก็ **แสดงทุกอย่างทันที** — fail open เสมอ
+
+ทุกอย่างเคารพ `prefers-reduced-motion: reduce` — ถ้าผู้ใช้ปิดอนิเมชัน เนื้อหาแสดงทันทีและ marquee หยุดนิ่ง
 
 ## 6. Accessibility checklist
 
-- [x] คอนทราสต์ตัวอักษร ≥ 4.5:1 ทั้งสองธีม
+- [x] คอนทราสต์ตัวอักษรผ่าน AA ทั้งสองธีม (ขาว-ดำล้วนได้ 19:1, `muted` บนขาวได้ 4.7:1)
 - [x] Skip link ไปเนื้อหาหลัก (โผล่ตอน focus)
 - [x] โครงสร้าง landmark: `header` / `main` / `footer` + heading ไล่ระดับถูกต้อง
-- [x] `:focus-visible` มีวงแหวนสีส้มชัดเจนทุกองค์ประกอบที่กดได้
+- [x] `:focus-visible` ใช้ `currentColor` จึงเห็นชัดทั้งบนพื้นขาวและพื้นดำ
 - [x] เมนูมือถือมี `aria-expanded` / `aria-controls`
-- [x] ไอคอนตกแต่งใส่ `aria-hidden`, ปุ่มไอคอนล้วนมี `aria-label`
-- [x] เนื้อหายังอ่านได้เมื่อปิด JavaScript (`<noscript>` บังคับให้ `.reveal` แสดง)
+- [x] `FitText` เป็น SVG จึงใส่ `role="img"` + `aria-label` ให้อ่านออกเสียงได้
+- [x] การ์ดที่ลอยตามเมาส์เป็นของตกแต่ง ใส่ `aria-hidden` และซ่อนบนอุปกรณ์สัมผัส
+- [x] เนื้อหายังอ่านได้เมื่อปิด JavaScript (`<noscript>` บังคับให้ reveal แสดง)
 
-## 7. เพิ่มเซคชันใหม่ยังไง
+## 7. ไฟล์ Figma
+
+[Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK)
+
+- **01 · Foundations** — color token ทั้งสองธีม (ผูกเป็น Figma Variables จริง) + type scale
+- **02 · Screens** — Desktop 1440px เต็มหน้า และ Mobile 390px
+
+> Figma ยังไม่มี Inter Tight ในไฟล์นี้จึงใช้ Inter Bold + tracking -4.5% ซึ่งให้หน้าตาใกล้เคียงมาก
+> ส่วนแผน Starter จำกัด collection ละ 1 mode จึงแยกเป็น `Mono · Light` กับ `Mono · Dark`
+
+## 8. เพิ่มเซคชันใหม่ยังไง
 
 ```tsx
 // src/components/Writing.tsx
-import SectionHeading from "./SectionHeading";
+import SectionLabel from "./SectionLabel";
 
 export default function Writing() {
   return (
-    <section id="writing" className="scroll-mt-24 py-20 sm:py-28">
-      <div className="section-shell">
-        <SectionHeading index="06 — Writing" title="บทความ" />
+    <section id="writing" className="scroll-mt-16 pt-20 md:pt-28">
+      <div className="shell">
+        <SectionLabel no="06" title="Writing" description="..." />
         {/* ใส่ .reveal ให้ลูก ๆ เพื่อให้อนิเมชันทำงานอัตโนมัติ */}
       </div>
     </section>
@@ -106,4 +152,5 @@ export default function Writing() {
 }
 ```
 
-แล้วเพิ่มเข้า `src/app/page.tsx` และเพิ่มลิงก์ใน `navItems` ที่ `src/content/profile.ts` — active state ของเมนูจะทำงานเอง
+แล้วเพิ่มเข้า `src/app/page.tsx` และเพิ่มลิงก์ใน `navItems` ที่ `src/content/profile.ts`
+— ทั้งเมนูบนและสารบัญกลางหน้าจะอัปเดตเอง

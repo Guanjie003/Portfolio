@@ -1,30 +1,35 @@
 import { profile } from "@/content/profile";
-import SectionHeading from "./SectionHeading";
+import SectionLabel from "./SectionLabel";
 
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-24 py-20 sm:py-28">
-      <div className="section-shell">
-        <SectionHeading index="01 — About" title="สั้น ๆ เกี่ยวกับผม" />
+    <section id="about" className="scroll-mt-16 pt-20 md:pt-28">
+      <div className="shell">
+        <SectionLabel no="02" title="About" />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-          <div className="reveal space-y-6 text-lg leading-relaxed text-muted">
+        <div className="grid gap-10 pb-16 md:grid-cols-12 md:gap-8">
+          <div className="reveal space-y-6 md:col-span-7">
             {profile.about.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
+              <p key={i} className="thai-tight text-xl leading-relaxed md:text-2xl">
+                {paragraph}
+              </p>
             ))}
-            <p className="text-ink">
-              ตอนนี้อยู่ที่{" "}
-              <span className="font-medium text-accent">{profile.location}</span> และทำงานแบบ remote ได้
-            </p>
           </div>
 
-          <dl className="reveal grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line" style={{ "--reveal-delay": "120ms" } as React.CSSProperties}>
+          <dl
+            className="reveal self-start md:col-span-4 md:col-start-9"
+            style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
+          >
             {profile.facts.map((fact) => (
-              <div key={fact.label} className="bg-surface p-6">
-                <dt className="text-sm text-muted">{fact.label}</dt>
-                <dd className="mt-2 text-2xl font-semibold tracking-tight">{fact.value}</dd>
+              <div key={fact.label} className="flex items-baseline justify-between border-t border-line py-3.5">
+                <dt className="label text-muted">{fact.label}</dt>
+                <dd className="text-lg">{fact.value}</dd>
               </div>
             ))}
+            <div className="flex items-baseline justify-between border-y border-line py-3.5">
+              <dt className="label text-muted">Based in</dt>
+              <dd className="text-lg">{profile.location}</dd>
+            </div>
           </dl>
         </div>
       </div>

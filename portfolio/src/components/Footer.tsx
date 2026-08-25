@@ -1,21 +1,52 @@
-import { navItems, profile } from "@/content/profile";
+import { navItems, profile, socials } from "@/content/profile";
+import FitText from "./FitText";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line py-10">
-      <div className="section-shell flex flex-col items-center justify-between gap-6 sm:flex-row">
-        <p className="text-sm text-muted">
-          © {new Date().getFullYear()} {profile.fullName} · สร้างด้วย Next.js และ Tailwind CSS
-        </p>
-        <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <a href={item.href} className="text-sm text-muted transition hover:text-accent">
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <footer className="shell py-12">
+      <div className="grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <FitText label={profile.fullName}>{profile.displayName}</FitText>
+          <p className="label mt-4 text-muted">{profile.role}</p>
+        </div>
+
+        <nav className="md:col-span-3" aria-label="ลิงก์ในหน้า">
+          <p className="label text-muted">Index</p>
+          <ul className="mt-4 space-y-2">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className="text-sm transition-opacity hover:opacity-60">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="md:col-span-3">
+          <p className="label text-muted">Elsewhere</p>
+          <ul className="mt-4 space-y-2">
+            {socials.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="text-sm transition-opacity hover:opacity-60"
+                >
+                  {social.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="label mt-16 flex flex-wrap justify-between gap-4 border-t border-line pt-6 text-muted">
+        <span>
+          © {new Date().getFullYear()} {profile.fullName}
+        </span>
+        <span>Next.js · Tailwind CSS · Vercel</span>
       </div>
     </footer>
   );

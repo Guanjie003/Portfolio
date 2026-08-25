@@ -1,7 +1,7 @@
 # Portfolio — Guanjie
 
-เว็บพอร์ตโฟลิโอหน้าเดียว สร้างด้วย **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**
-ครบทั้ง 3 ส่วน: **Design → Coding → Deploy**
+เว็บพอร์ตโฟลิโอหน้าเดียวสไตล์ **brutalist editorial** — ขาว-ดำล้วน ตัวอักษรใหญ่เต็มจอ ไม่มีสีเน้น
+สร้างด้วย **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4** ครบทั้ง 3 ส่วน: **Design → Coding → Deploy**
 
 | | |
 | --- | --- |
@@ -15,14 +15,16 @@
 
 ไฟล์ Figma แบ่งเป็น 2 หน้า:
 
-- **01 · Foundations** — color token ทั้งธีมมืดและสว่าง (ผูกเป็น Figma Variables จริง ไม่ใช่สี hardcode) + type scale
+- **01 · Foundations** — color token ทั้งสองธีม (ผูกเป็น Figma Variables จริง ไม่ใช่สี hardcode) + type scale
 - **02 · Screens** — หน้า Landing เต็มขนาด Desktop 1440px และ Mobile 390px
 
-ค่าสีใน Figma กับ CSS custom property ใน [`src/app/globals.css`](src/app/globals.css) เป็นชุดเดียวกัน
-ถ้าจะเปลี่ยนสีธีม ให้แก้ที่ `globals.css` แล้วอัปเดต variable ใน Figma ให้ตรงกัน
+ทั้งเว็บใช้สีแค่ 4 token ต่อธีม (`paper` / `ink` / `muted` / `line`) ค่าใน Figma กับ CSS custom property
+ใน [`src/app/globals.css`](src/app/globals.css) เป็นชุดเดียวกัน ถ้าจะเปลี่ยนธีม ให้แก้ที่ `globals.css`
+แล้วอัปเดต variable ใน Figma ให้ตรงกัน
 
 > **หมายเหตุ:** Figma แผน Starter จำกัดให้ collection ละ 1 mode จึงแยกเป็น 2 collection
-> (`Color · Dark (default)` และ `Color · Light`) แทนการใช้ mode สลับธีมในไฟล์เดียว
+> (`Mono · Light (default)` และ `Mono · Dark`) แทนการใช้ mode สลับธีมในไฟล์เดียว
+> และยังไม่มี Inter Tight ในไฟล์ จึงใช้ Inter Bold + tracking -4.5% แทน
 
 รายละเอียดหลักการออกแบบ token, type scale, motion และ accessibility checklist อยู่ใน [DESIGN.md](DESIGN.md)
 
@@ -50,16 +52,21 @@ src/
 └─ content/profile.ts       # ✏️ ข้อมูลทั้งหมดอยู่ที่ไฟล์นี้ไฟล์เดียว
 ```
 
-**Server component เป็นค่าเริ่มต้น** — มีแค่ 3 ไฟล์ที่เป็น client component คือ
-`Nav.tsx` (เมนูมือถือ + active state), `ThemeToggle.tsx` และ `ScrollReveal.tsx`
-ทำให้ JavaScript ที่ส่งถึงเบราว์เซอร์อยู่ที่ **~105 kB** (First Load JS)
+เซคชันบนหน้าแรก: Hero → Index → Statement → Marquee → Work → About → Capabilities → Experience → Contact → Footer
+
+**Server component เป็นค่าเริ่มต้น** — มีแค่ 4 ไฟล์ที่เป็น client component คือ
+`Nav.tsx` (เมนูมือถือ), `ThemeToggle.tsx`, `ScrollReveal.tsx` และ `Work.tsx` (การ์ดที่ลอยตามเมาส์)
+ทำให้ JavaScript ที่ส่งถึงเบราว์เซอร์อยู่ที่ **~103 kB** (First Load JS)
 
 ### แก้เนื้อหา
 
 เปิด [`src/content/profile.ts`](src/content/profile.ts) แล้วแก้ที่เดียวจบ — ชื่อ, headline, about,
 skills, projects, experience, social links ทุกเซคชันอ่านข้อมูลจากไฟล์นี้
 
-เพิ่ม `resume.pdf` ลงใน `public/` แล้วปุ่ม "ดาวน์โหลด Resume" จะทำงานทันที
+เพิ่ม `resume.pdf` ลงใน `public/` แล้วลิงก์ Resume จะทำงานทันที
+
+ชื่อบนหน้าแรกกว้างเต็มจอเสมอด้วย [`FitText.tsx`](src/components/FitText.tsx) (SVG + `textLength`)
+เปลี่ยน `displayName` ให้ยาว/สั้นแค่ไหนก็ยังพอดีขอบ ไม่ต้องแก้ตัวเลขขนาดฟอนต์
 
 ### ⚠️ browserslist — อย่าลบออก
 
