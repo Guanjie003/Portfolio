@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -64,6 +66,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         {children}
         <ScrollReveal />
+        {/* Cookieless analytics and Core Web Vitals — both inert unless running on Vercel */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
