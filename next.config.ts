@@ -9,7 +9,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // This repo contains more than one package.json — pin the root so Next does not guess wrong
+  // Pin the tracing root: a stray package.json in an ancestor directory can otherwise
+  // make Next infer the wrong workspace root
   outputFileTracingRoot: path.join(__dirname),
   poweredByHeader: false,
   compress: true,

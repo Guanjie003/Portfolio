@@ -1,147 +1,146 @@
-# CoreUI Pro Vue Bootstrap Admin Template
+# Portfolio — Guanjie
 
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=CoreUI%20-%20Free%20Vue%20Admin%20Template%20&url=http://coreui.io/vue/&hashtags=bootstrap,admin,template,dashboard,panel,free,angular,react,vue)
-[![NPM][npm-coreui-vue-badge-latest]][npm-coreui-vue]
-[![Downloads](https://img.shields.io/npm/dm/@coreui/vue.svg?style=flat-square)][coreui]
-[![Vue](https://img.shields.io/badge/Vue-^2.6.11-brightgreen.svg?style=flat-square)][coreui]
+A single-page portfolio in a **brutalist editorial** style — black and white only, oversized type,
+no accent colour. Built with **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, covering
+all three parts: **Design → Coding → Deploy**.
 
-[npm-coreui-vue]: https://www.npmjs.com/package/@coreui/vue
-[npm-coreui-vue-badge-latest]: https://img.shields.io/npm/v/@coreui/vue/latest?style=flat-square&color=brightgreen  
-[coreui]: https://coreui.io/vue
+| | |
+| --- | --- |
+| Design (Figma) | [Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK) |
+| Design notes | [DESIGN.md](DESIGN.md) |
+| All site content | [`src/content/profile.ts`](src/content/profile.ts) |
 
-![Template](https://coreui.io/images/github/vue-free-template-3.gif)
+---
 
-## Description
+## 1. Design
 
-Why we decided to create CoreUI? Please read this article: [Jack of all trades, master of none. Why Boostrap Admin Templates suck.](https://medium.com/@lukaszholeczek/jack-of-all-trades-master-of-none-5ea53ef8a1f#.7eqx1bcd8)
+The Figma file has two pages:
 
-**This is not just another Admin Template.** It goes way beyond hitherto admin templates thanks to:
+- **01 · Foundations** — colour tokens for both themes (wired up as real Figma Variables, not
+  hardcoded fills) plus the type scale
+- **02 · Screens** — the full landing page at Desktop 1440px and Mobile 390px
 
-- Wonderful styling delivered by bootstrap compatible css library [CoreUI](https://coreui.io/docs),
-- Dedicated [component library](https://coreui.io/vue/docs/),
-- Dedicated vue tooling libraries ([coreui-vue-chartjs](https://coreui.io/vue/docs/components/charts), [coreui-icons-vue](https://github.com/coreui/coreui-icons-vue)),
-- Over 500 [free svg icons](https://coreui.io/icons) consistent with our styling,
-- Transparent code and file structure
-- Possibility of extension to [pro version](https://coreui.io/vue) which offers even more! 
+The whole site runs on four colour tokens per theme (`paper` / `ink` / `muted` / `line`). The values
+in Figma and the CSS custom properties in [`src/app/globals.css`](src/app/globals.css) are the same
+set — to change the theme, edit `globals.css` and update the matching Figma variables.
 
-CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of redundant components, so the app is light enough to offer ultimate user experience. This means mobile devices also, where the navigation is just as easy and intuitive as on a desktop or laptop. The CoreUI Layout API lets you customize your project for almost any device – be it Mobile, Web or WebApp – CoreUI covers them all!
+> **Notes:** Figma's Starter plan allows only one mode per collection, so the tokens are split into
+> two collections (`Mono · Light (default)` and `Mono · Dark`) rather than one collection with a
+> theme mode. Inter Tight is also not available in that file, so the mockups use Inter Bold with
+> -4.5% tracking, which is very close.
 
-**NOTE:** Please remember to star this project to get new versions updates of this template.
+Design rationale, type scale, motion and the accessibility checklist all live in [DESIGN.md](DESIGN.md).
 
-### Demo
+## 2. Coding
 
-A fully functional demo is available at [CoreUI](http://coreui.io/vue/)
-
-### Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [Our other products](#our-other-products)
-- [Community](#community)
-- [Community Projects](#community-projects)
-- [License](#copyright-and-license)
-- [Support CoreUI Development](#support-coreui-development)
-
-### Installation
-
-#### Clone repo
-
-``` bash
-# clone the repo
-$ git clone https://github.com/coreui/coreui-pro-vue-admin-template.git CoreUI-Vue
-
-# go into app's directory
-$ cd CoreUI-Vue
-
-# install app's dependencies
-$ npm install
-```
-
-#### Usage
-
-``` bash
-# serve with hot reload at localhost:8080
-npm run serve
-
-# build for production with minification
-npm run build
-
-# run linter
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
 npm run lint
-
-# run unit tests
-npm run test:unit
-
-# run e2e tests
-npm run test:e2e
-
 ```
 
-For a detailed explanation on how things work, check out the [Vue CLI Guide](https://cli.vuejs.org/guide/).
+### Structure
 
-### Documentation
+```
+src/
+├─ app/
+│  ├─ layout.tsx            # fonts, metadata, no-flash theme script
+│  ├─ page.tsx              # composes every section + JSON-LD (schema.org Person)
+│  ├─ globals.css           # design tokens, utilities, scroll reveal
+│  ├─ icon.tsx              # favicon generated from the name
+│  ├─ opengraph-image.tsx   # 1200x630 share card, generated
+│  ├─ sitemap.ts / robots.ts
+├─ components/              # Nav, Hero, IndexList, Statement, Marquee, Work,
+│                           # About, Capabilities, Experience, Contact, Footer
+└─ content/profile.ts       # ✏️ every piece of copy lives in this one file
+```
 
-CoreUI tools documentation:
+Section order on the home page:
+Hero → Index → Statement → Marquee → Work → About → Capabilities → Experience → Contact → Footer
 
-- Components documentation: [CoreUI Vue library](https://coreui.io/vue/docs)
-- Styles documentation: [CoreUI styles](https://coreui.io/docs)
-- Icons documentation: [CoreUI Icons](http://coreui.io/icons)
+**Server components by default** — only four files are client components: `Nav.tsx` (mobile menu),
+`ThemeToggle.tsx`, `ScrollReveal.tsx` and `Work.tsx` (the cursor-following preview card). That keeps
+the JavaScript shipped to the browser at roughly **103 kB** First Load JS.
 
-### Bugs and feature requests
+### Editing the content
 
-Have a bug or a feature request? [Please open a new issue](https://github.com/coreui/coreui-pro-vue-admin-template/issues).
+Open [`src/content/profile.ts`](src/content/profile.ts) and edit it in one place — name, tagline,
+about, skills, projects, experience and social links. Every section reads from that file.
 
-### Contributing
+Drop a `resume.pdf` into `public/` and the Resume link works immediately.
 
-Please read through our [contributing guidelines](https://github.com/coreui/coreui-free-vue-admin-template/blob/master/.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+The name on the home page always spans the full width via
+[`FitText.tsx`](src/components/FitText.tsx) (SVG + `textLength`), so you can make `displayName`
+longer or shorter without touching any font-size values.
 
-### Versioning
+### Adding another language
 
-For transparency into our release cycle and in striving to maintain backward compatibility,CoreUI Free Admin Template is maintained under [the Semantic Versioning guidelines](http://semver.org/).
+The site is English-only and ships just Inter Tight and Inter. If you add copy in a script those
+fonts do not cover — Thai, for example — add the matching font in `layout.tsx`:
 
-See [the Releases section of our project](https://github.com/coreui/coreui-pro-vue-admin-template/releases) for changelogs for each release version.
+```ts
+const thai = Noto_Sans_Thai({ subsets: ["thai"], variable: "--font-thai", display: "swap" });
+```
 
-### Our other products
+then append `var(--font-thai)` to the `--font-sans` and `--font-display` stacks in `globals.css`
+and add the variable to the `<body>` class list.
 
-CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
+### ⚠️ browserslist — do not remove
 
-#### Free version products
+`package.json` declares `browserslist` deliberately:
 
-- [CoreUI Free Vue Laravel Admin Template](https://github.com/coreui/coreui-free-vue-laravel-admin-template)
+```json
+"browserslist": ["chrome 111", "edge 111", "firefox 111", "opera 97", "safari 16.4"]
+```
 
-- [CoreUI Free Laravel Admin Template](https://github.com/coreui/coreui-free-laravel-admin-template)
+browserslist **walks up the directory tree** looking for config, so a stray `package.json` in any
+ancestor directory silently decides what this project compiles to. On the machine this was built on
+there is a leftover `~/package.json` carrying `"> 1%", "not ie <= 9"`; without a local declaration
+those values win, Next compiles down to ES5, and the bundle grows from **103 kB to 339 kB**.
 
-- [CoreUI Free Bootstrap Admin Template](https://github.com/coreui/coreui-free-bootstrap-admin-template)
+Verified by building both ways. Declaring it locally makes the target explicit and immune to whatever
+sits above the project, so keep the line even though a clean checkout on CI would not need it.
 
-- [CoreUI Free Angular 2+ Admin Template](https://github.com/coreui/coreui-free-angular-admin-template)
+## 3. Deploy
 
-- [CoreUI Free React.js Admin Template](https://github.com/coreui/coreui-free-react-admin-template)
+### Vercel (recommended)
 
-#### Pro version products
+1. Push the code to GitHub/GitLab
+2. Vercel → **Add New… → Project** → pick this repo
+3. The framework preset detects **Next.js** automatically — no need to change the build command or
+   the root directory
+4. Set the environment variable:
 
-- 💪  [CoreUI Pro Laravel Vue Admin Template](https://coreui.io/pro/laravel)
-- 💪  [CoreUI Pro Laravel Admin Template](https://coreui.io/pro/laravel)
-- 💪  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
-- 💪  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
-- 💪  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
+   | Key | Value |
+   | --- | --- |
+   | `NEXT_PUBLIC_SITE_URL` | `https://<your-domain>` |
 
-## Community
+   It is used for canonical URLs, `sitemap.xml` and the OG image. Without it the site falls back to
+   `https://your-portfolio.vercel.app` as defined in `src/content/profile.ts`.
+5. Deploy — from then on every push to the production branch deploys automatically, and every PR gets
+   a preview URL
 
-Get updates on CoreUI's development and chat with the project maintainers and community members.
+### Check before deploying
 
-- Follow [@core_ui on Twitter](https://twitter.com/core_ui).
-- Read and subscribe to [CoreUI Blog](https://coreui.ui/blog/).
+```bash
+npm run lint && npm run build
+```
 
-### Community Projects
+`npm run build` should report First Load JS around **103 kB**. If you see numbers in the 300 kB
+range, the `browserslist` entry in `package.json` has gone missing (see above).
 
-Some of projects created by community but not maintained by CoreUI team.
+### Alternatives
 
-- [NuxtJS + Vue CoreUI](https://github.com/muhibbudins/nuxt-coreui)
-- [Colmena](https://github.com/colmena/colmena)
+- **Static export** — the site is fully static, so adding `output: "export"` to `next.config.ts`
+  lets you drop `out/` on GitHub Pages or S3. Note that `icon.tsx` and `opengraph-image.tsx` would
+  need to become real image files, since a static export cannot generate them at runtime.
 
-## Support CoreUI Development
+## SEO / metadata included
 
-If you are a business that is building core products using CoreUI, we are open to conversations regarding custom sponsorship / consulting arrangements. Get in touch on [Twitter](https://twitter.com/lukaszholeczek).
+- Metadata API: title template, description, Open Graph, Twitter card
+- `opengraph-image.tsx` generates a 1200×630 share card from the data in `profile.ts`
+- `sitemap.xml` and `robots.txt` generated from code
+- JSON-LD `schema.org/Person` embedded on the home page
+- Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`) set in `next.config.ts`
