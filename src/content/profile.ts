@@ -203,5 +203,37 @@ export function sectionNo(id: string) {
   return i === -1 ? "" : String(i + 1).padStart(2, "0");
 }
 
-/** Used in production — change this to your own domain. */
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://your-portfolio.vercel.app";
+/** Last resort, only used when nothing else resolves. */
+const FALLBACK_SITE_URL = "https://your-portfolio.vercel.app";
+
+/**
+ * The canonical origin, used for metadataBase, the sitemap and the OG image.
+ *
+ * Deliberately tolerant: `??` alone is not enough, because an environment
+ * variable that exists but is empty is a string, not undefined, and `new URL("")`
+ * throws and takes the whole build down. This also accepts a bare host with no
+ * scheme and strips any path or trailing slash.
+ */
+function resolveSiteUrl(): string {
+  const candidates = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    // Vercel sets this on every deployment, so the site is correct even with no config
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.VERCEL_URL,
+  ];
+
+  for (const candidate of candidates) {
+    const value = candidate?.trim();
+    if (!value) continue;
+    const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+    try {
+      return new URL(withScheme).origin;
+    } catch {
+      // malformed — try the next candidate rather than failing the build
+    }
+  }
+
+  return FALLBACK_SITE_URL;
+}
+
+export const siteUrl = resolveSiteUrl();
