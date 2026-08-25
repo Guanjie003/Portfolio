@@ -10,7 +10,7 @@ export default function Footer() {
           <p className="label mt-4 text-muted">{profile.role}</p>
         </div>
 
-        <nav className="md:col-span-3" aria-label="ลิงก์ในหน้า">
+        <nav className="md:col-span-3" aria-label="Sections">
           <p className="label text-muted">Index</p>
           <ul className="mt-4 space-y-2">
             {navItems.map((item) => (

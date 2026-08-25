@@ -3,12 +3,13 @@
 import { useEffect } from "react";
 
 /**
- * ทำ scroll-reveal ให้ทุก element ที่มี class="reveal" หรือ "reveal-mask"
- * mount ครั้งเดียวใน layout เพื่อให้ส่วนอื่นยังเป็น server component ได้
+ * Drives the scroll reveal for every element carrying `reveal` or `reveal-mask`.
+ * Mounted once in the layout so the rest of the tree can stay server components.
  *
- * ตั้งใจวัดตำแหน่งเองแทนการใช้ IntersectionObserver เพราะ element ที่ยังไม่ reveal
- * ถูกซ่อนอยู่ — ถ้า observer ไม่ยิง callback ด้วยเหตุผลใดก็ตาม เนื้อหาจะหายทั้งหน้า
- * การวัด rect ตรง ๆ ทำให้ล้มเหลวแล้วยังเห็นเนื้อหาเสมอ
+ * This measures positions itself instead of using IntersectionObserver: elements that
+ * have not been revealed yet are hidden, so if the observer failed to fire for any
+ * reason the content would disappear entirely. Measuring rects directly fails open —
+ * anything unexpected still ends with the content on screen.
  */
 export default function ScrollReveal() {
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function ScrollReveal() {
     try {
       check();
     } catch {
-      // วัดตำแหน่งไม่ได้ด้วยเหตุผลใดก็ตาม — โชว์เนื้อหาทั้งหมดดีกว่าปล่อยให้หน้าว่าง
+      // If measuring fails for any reason, showing everything beats leaving a blank page
       revealAll();
       detach();
     }

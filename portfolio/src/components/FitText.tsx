@@ -1,16 +1,17 @@
 type Props = {
   children: string;
   className?: string;
-  /** ป้ายกำกับสำหรับ screen reader ถ้าต้องการต่างจากข้อความที่แสดง */
+  /** Screen-reader label, if it should differ from the visible text. */
   label?: string;
 };
 
 /**
- * ข้อความที่กว้างเต็มคอนเทนเนอร์เสมอไม่ว่าจอกว้างแค่ไหน
+ * Text that always spans the full width of its container, at any viewport size.
  *
- * ใช้ SVG + textLength เพราะการไล่ font-size ด้วย vw จะพอดีแค่ความกว้างเดียว
- * ส่วน viewBox คำนวณจากความกว้างโดยประมาณของ Inter Tight (~0.5em ต่อตัวอักษร)
- * แล้ว textLength บังคับให้พอดีเป๊ะอีกที ค่าประมาณจึงมีผลแค่กับสัดส่วนความสูง
+ * Uses SVG + textLength because scaling font-size with vw only fits exactly at one
+ * width. The viewBox is estimated from Inter Tight's average glyph width (~0.5em per
+ * character); textLength then forces an exact fit, so the estimate only affects the
+ * rendered aspect ratio.
  */
 export default function FitText({ children, className = "", label }: Props) {
   const text = children.trim();

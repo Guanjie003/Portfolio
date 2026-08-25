@@ -8,7 +8,7 @@ export default function Capabilities() {
         <SectionLabel
           no="03"
           title="Capabilities"
-          description="ไม่ได้ลิสต์ทุกอย่างที่เคยแตะ แต่เป็นสิ่งที่หยิบมาใช้ในโปรเจคจริงและอธิบายได้ว่าเลือกเพราะอะไร"
+          description="Not everything I have ever touched — just what I reach for on real projects and can explain the reasoning behind."
         />
 
         <div className="grid border-t border-line md:grid-cols-4">

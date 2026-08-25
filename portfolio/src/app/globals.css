@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
-/* ธีมมืด/สว่าง คุมด้วย attribute data-theme บน <html> */
+/* Light/dark is driven by the data-theme attribute on <html> */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* ---------- Design tokens ----------
-   ดีไซน์นี้เป็นขาว-ดำล้วน ไม่มีสีเน้น น้ำหนักทั้งหมดมาจากขนาดตัวอักษรและเส้น */
+   The whole design is black and white with no accent colour.
+   All hierarchy comes from type size and hairline rules. */
 :root {
   --paper: #ffffff;
   --ink: #0a0a0a;
@@ -21,8 +22,8 @@
   --line-strong: #f4f4f4;
 }
 
-/* บล็อกกลับสี — สลับ paper/ink เฉพาะใน subtree นี้
-   คลาส bg-paper / text-ink / border-line ที่อยู่ข้างในจะกลับสีตามอัตโนมัติ */
+/* Inverted block — swaps paper/ink for this subtree only.
+   Any bg-paper / text-ink / border-line class inside flips automatically. */
 .invert {
   --paper: #0a0a0a;
   --ink: #f4f4f4;
@@ -48,8 +49,8 @@
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
 
-  --font-sans: var(--font-inter), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ---------- Base ---------- */
@@ -60,7 +61,7 @@ html {
 body {
   background-color: var(--paper);
   color: var(--ink);
-  font-family: var(--font-inter), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -77,14 +78,13 @@ body {
 
 /* ---------- Type ---------- */
 .display {
-  font-family: var(--font-display), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 0.85;
-  text-transform: none;
 }
 
-/* ชื่อบนหน้าแรก — กว้างเต็มจอเสมอไม่ว่าจอกว้างแค่ไหน */
+/* The home page name — full-bleed at every viewport width */
 .display-hero {
   font-size: clamp(3.2rem, 13.2vw, 15rem);
 }
@@ -104,11 +104,6 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   line-height: 1;
-}
-
-.thai-tight {
-  line-height: 1.15;
-  letter-spacing: -0.01em;
 }
 
 /* ---------- Layout ---------- */
@@ -162,7 +157,7 @@ body {
   }
 }
 
-/* ภาพตัวอย่างที่ลอยตามเมาส์ตอน hover แถวผลงาน */
+/* Preview card that trails the cursor while hovering a work row */
 .hover-thumb {
   position: fixed;
   top: 0;
@@ -194,9 +189,9 @@ body {
   transform: none;
 }
 
-/* บรรทัดใหญ่โผล่ขึ้นมาจากด้านล่างผ่านหน้ากาก
-   หน้ากากต้องเป็น overflow: hidden ไม่ใช่ clip-path เพราะ clip-path ทำให้
-   IntersectionObserver มองว่าพื้นที่ของ element เป็นศูนย์ แล้วจะไม่ trigger ตัวเอง */
+/* Oversized lines rise up from behind a mask.
+   The mask must be overflow: hidden rather than clip-path — clip-path reports a
+   zero-area intersection rect, which would stop any observer from ever firing. */
 .reveal-mask {
   overflow: hidden;
   padding-bottom: 0.08em;

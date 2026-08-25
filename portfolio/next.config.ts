@@ -9,7 +9,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // รีโปนี้มี package.json มากกว่าหนึ่งไฟล์ — ระบุ root ให้ชัดเพื่อไม่ให้ Next เดาผิด
+  // This repo contains more than one package.json — pin the root so Next does not guess wrong
   outputFileTracingRoot: path.join(__dirname),
   poweredByHeader: false,
   compress: true,

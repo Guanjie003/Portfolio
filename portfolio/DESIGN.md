@@ -1,37 +1,41 @@
 # Design System — Portfolio
 
-เอกสารสรุปการตัดสินใจด้านดีไซน์ของเว็บนี้ ใช้เป็นแผนที่เวลาจะเพิ่มหน้าใหม่หรือแก้ของเดิม
+Notes on the design decisions behind this site. Use it as the map when adding a new section or
+changing an existing one.
 
-## 1. คอนเซปต์
+## 1. Concept
 
-> **"Brutalist editorial — ตัวอักษรคือภาพ"**
+> **"Brutalist editorial — the type is the image"**
 
-อ้างอิงแนวทางจากเว็บอย่าง [paulkalkbrenner.net](https://www.paulkalkbrenner.net) คือทิ้งทุกอย่างที่ไม่จำเป็น
-เหลือแค่ **ขาว ดำ และตัวอักษร** แล้วเล่นกับ *ขนาด* ให้สุดทาง ผลคือหน้าเว็บที่ดูมั่นใจ จำได้ และโหลดเร็ว
-เพราะแทบไม่มีอะไรให้โหลดนอกจากฟอนต์
+Following the approach of sites like [paulkalkbrenner.net](https://www.paulkalkbrenner.net): throw
+out everything that is not needed, leave **black, white and type**, then push *scale* as far as it
+will go. The result is a page that reads as confident, is easy to remember, and loads fast because
+there is barely anything to load beyond the fonts.
 
-หลักที่ยึด 4 ข้อ:
+Four rules it sticks to:
 
-1. **ไม่มีสีเน้นเลย** — ลำดับความสำคัญมาจากขนาดตัวอักษรและเส้น hairline ไม่ใช่สี
-2. **ตัวใหญ่ต้องใหญ่จริง** — ชื่อบนหน้าแรกกว้างเต็มจอเสมอ ไม่ว่าจอกว้างแค่ไหน
-3. **กลับขั้วเพื่อแบ่งจังหวะ** — เซคชันสำคัญ (statement, contact) พลิกเป็นพื้นดำตัวขาว แทนการใช้สีพื้นหลังอ่อน
-4. **มูฟเมนต์ต้องเบา** — เผยเนื้อหาตอนเลื่อนถึงเท่านั้น ไม่มีอะไรกระพริบตลอดเวลา
+1. **No accent colour at all** — hierarchy comes from type size and hairline rules, not hue
+2. **Big means genuinely big** — the name on the home page spans the full viewport width, always
+3. **Invert to change the rhythm** — key sections (statement, contact) flip to white-on-black
+   instead of reaching for a tinted background
+4. **Keep motion quiet** — content is revealed as you scroll to it, and nothing loops in your face
 
-## 2. Color tokens
+## 2. Colour tokens
 
-มีแค่ 4 token ต่อธีม ประกาศเป็น CSS custom property ใน [`src/app/globals.css`](src/app/globals.css)
-แล้ว map เข้า Tailwind ผ่าน `@theme inline` → ใช้เป็นคลาสได้เลย
+Four tokens per theme, declared as CSS custom properties in
+[`src/app/globals.css`](src/app/globals.css) and mapped into Tailwind through `@theme inline`, so
+they are usable as ordinary classes.
 
-| Token | Tailwind class | Light | Dark | ใช้ตอนไหน |
+| Token | Tailwind class | Light | Dark | Used for |
 | --- | --- | --- | --- | --- |
-| `--paper` | `bg-paper` | `#ffffff` | `#0a0a0a` | พื้นหลัง |
-| `--ink` | `text-ink` / `bg-ink` | `#0a0a0a` | `#f4f4f4` | ตัวอักษรหลัก |
-| `--muted` | `text-muted` | `#767676` | `#8c8c8c` | คำอธิบาย, meta, label |
-| `--line` | `border-line` | `#e2e2e2` | `#242424` | เส้นคั่นทั้งหมด |
+| `--paper` | `bg-paper` | `#ffffff` | `#0a0a0a` | Backgrounds |
+| `--ink` | `text-ink` / `bg-ink` | `#0a0a0a` | `#f4f4f4` | Primary text |
+| `--muted` | `text-muted` | `#767676` | `#8c8c8c` | Descriptions, meta, labels |
+| `--line` | `border-line` | `#e2e2e2` | `#242424` | Every divider |
 
-### `.invert` — บล็อกกลับขั้ว
+### `.invert` — the flipped block
 
-คลาสเดียวที่พลิกทั้งบล็อก โดย **นิยาม token ชุดใหม่ทับใน subtree นั้น**:
+One class flips an entire block by **redeclaring the token set inside that subtree**:
 
 ```css
 .invert { --paper: #0a0a0a; --ink: #f4f4f4; --muted: #8c8c8c; --line: #242424;
@@ -39,39 +43,41 @@
 [data-theme="dark"] .invert { --paper: #ffffff; --ink: #0a0a0a; /* ... */ }
 ```
 
-ข้อดีคือคลาส Tailwind ที่อยู่ข้างใน (`text-muted`, `border-line`, `bg-ink`) กลับสีตามเองทั้งหมด
-ไม่ต้องเขียน `dark:` หรือ variant ซ้อนเลย ใช้กับเซคชัน Statement และ Contact
+The advantage is that every Tailwind class inside (`text-muted`, `border-line`, `bg-ink`) inverts by
+itself — no `dark:` variants and no nested overrides anywhere. Used by the Statement and Contact
+sections.
 
-**สลับธีม:** คุมด้วย `data-theme="light" | "dark"` บน `<html>` สคริปต์เล็ก ๆ ใน `layout.tsx`
-อ่านค่าจาก `localStorage` (fallback เป็น `prefers-color-scheme`) ก่อนหน้าจอวาด เพื่อไม่ให้เห็นจอกระพริบ
+**Theme switching** is driven by `data-theme="light" | "dark"` on `<html>`. A small script in
+`layout.tsx` reads `localStorage` (falling back to `prefers-color-scheme`) before first paint, so the
+page never flashes the wrong colours.
 
-> อยากได้สีเน้นกลับมา? เพิ่ม `--accent` หนึ่งตัวใน `:root` แล้วใช้กับลิงก์และ label — โครงที่เหลือไม่ต้องแตะ
+> Want an accent colour back? Add a single `--accent` in `:root` and use it on links and labels —
+> nothing else in the structure needs to change.
 
 ## 3. Typography
 
-ฟอนต์เดียวทั้งเว็บ (บวกฟอนต์ไทย) — ไม่มี mono ไม่มี serif เพราะดีไซน์นี้ให้ *น้ำหนักและขนาด* เป็นตัวแยกลำดับ
+One typeface across the whole site. No mono, no serif — this design lets *weight and scale* carry the
+hierarchy instead.
 
-| บทบาท | ฟอนต์ | ใช้กับ |
+| Role | Font | Used for |
 | --- | --- | --- |
-| Display | **Inter Tight** Bold | ชื่อ, หัวเซคชัน, ชื่อโปรเจค |
-| Body | **Inter** | เนื้อหาทั้งหมด |
-| Thai | **Noto Sans Thai** | fallback อัตโนมัติสำหรับตัวอักษรไทย |
+| Display | **Inter Tight** Bold | The name, section headings, project titles |
+| Body | **Inter** | Everything else |
 
-คลาสสำเร็จรูปใน `globals.css`:
+Ready-made classes in `globals.css`:
 
 ```
 .display       font-weight 700 · tracking -0.045em · leading 0.85
 .display-hero  clamp(3.2rem, 13.2vw, 15rem)
 .display-xl    clamp(2.6rem, 10.5vw, 12rem)    ← statement
-.display-lg    clamp(2rem, 5.2vw, 4.5rem)      ← หัวเซคชัน / ชื่อโปรเจค
+.display-lg    clamp(2rem, 5.2vw, 4.5rem)      ← section headings / project titles
 .label         11px · uppercase · tracking 0.2em
-.thai-tight    leading 1.15 (ตัวไทยกินความสูงมากกว่าละติน จึงบีบลง)
 ```
 
-### ชื่อที่กว้างเต็มจอเสมอ — `FitText`
+### Full-bleed name — `FitText`
 
-การไล่ `font-size` ด้วย `vw` จะพอดีแค่ความกว้างเดียว [`FitText.tsx`](src/components/FitText.tsx)
-จึงใช้ **SVG + `textLength`** แทน:
+Scaling `font-size` with `vw` only fits exactly at one width, so
+[`FitText.tsx`](src/components/FitText.tsx) uses **SVG + `textLength`** instead:
 
 ```tsx
 <svg viewBox={`0 0 ${width} 100`}>
@@ -79,62 +85,68 @@
 </svg>
 ```
 
-`viewBox` ประมาณจากความกว้างเฉลี่ยของ Inter Tight (~0.5em ต่อตัวอักษร) แล้ว `textLength`
-บังคับให้พอดีเป๊ะอีกที ค่าประมาณจึงมีผลแค่กับสัดส่วนความสูง — เปลี่ยนชื่อในไฟล์ content ได้เลยโดยไม่ต้องแก้ตัวเลข
+The `viewBox` is estimated from Inter Tight's average glyph width (~0.5em per character), and
+`textLength` then forces an exact fit — so the estimate only affects the rendered aspect ratio. You
+can change the name in the content file without touching a single number.
 
 ## 4. Layout & spacing
 
-- `.shell` = `padding-inline` 1.25rem (มือถือ) → 2rem (เดสก์ท็อป) — **ไม่มี max-width** เนื้อหาเต็มจอแบบเว็บ editorial
-- กริดหลักเป็น 12 คอลัมน์ (`md:grid-cols-12`) แถวผลงานและ experience วางบนกริดนี้ทั้งหมด
-- ระยะเซคชัน: `pt-20` (มือถือ) → `pt-28` (เดสก์ท็อป)
-- **ไม่มีมุมโค้ง ไม่มีเงา** — ขอบเขตทุกอย่างมาจากเส้น 1px สีเดียว
+- `.shell` = `padding-inline` 1.25rem (mobile) → 2rem (desktop) — **no max-width**; the content runs
+  the full width the way editorial sites do
+- The main grid is 12 columns (`md:grid-cols-12`); the work rows and experience entries both sit on it
+- Section rhythm: `pt-20` (mobile) → `pt-28` (desktop)
+- **No rounded corners, no shadows** — every boundary is a 1px rule in a single colour
 
 ## 5. Motion
 
-| Element | พฤติกรรม |
+| Element | Behaviour |
 | --- | --- |
-| `.reveal` | fade + เลื่อนขึ้น 14px เมื่อเข้า viewport |
-| `.reveal-mask` | บรรทัดใหญ่เลื่อนขึ้นจากใต้หน้ากาก (`overflow: hidden` + `translateY(105%)`) |
-| `--reveal-delay` | หน่วงเป็นขั้น 60–140ms ให้บรรทัด/แถวโผล่ไล่กัน |
-| `.marquee` | ข้อความวิ่งวนซ้าย 38s หยุดเมื่อ hover |
-| `.work-row:hover` | ทั้งแถวกลับขั้วเป็นพื้นดำ + การ์ดตัวอย่างลอยตามเมาส์ |
+| `.reveal` | Fade in and rise 14px on entering the viewport |
+| `.reveal-mask` | Oversized lines rise from behind a mask (`overflow: hidden` + `translateY(105%)`) |
+| `--reveal-delay` | 60–140ms steps so lines and rows arrive in sequence |
+| `.marquee` | Ticker scrolling left over 38s, paused on hover |
+| `.work-row:hover` | The whole row inverts to black and a preview card trails the cursor |
 
-### ทำไมไม่ใช้ IntersectionObserver
+### Why not IntersectionObserver
 
-เคยใช้ แล้วเจอสองปัญหา:
+It was the first approach, and it caused two problems:
 
-1. **`clip-path` ทำให้ observer ตายตัวเอง** — element ที่ซ่อนด้วย `clip-path: inset(0 0 100% 0)`
-   มีพื้นที่ intersection เป็นศูนย์ observer จึงไม่มีวันรายงานว่ามันเข้า viewport เนื้อหาหายถาวร
-   (แก้ด้วยการเปลี่ยนมาใช้หน้ากาก `overflow: hidden` แทน)
-2. **ถ้า observer ไม่ยิง เนื้อหาหายทั้งหน้า** — เพราะสถานะเริ่มต้นคือซ่อน
+1. **`clip-path` makes the observer deadlock on itself** — an element hidden with
+   `clip-path: inset(0 0 100% 0)` has a zero-area intersection rect, so the observer can never report
+   it as visible and the content stays hidden forever. (Fixed by switching to an `overflow: hidden`
+   mask.)
+2. **If the observer does not fire, the whole page disappears** — because the initial state is hidden.
 
-[`ScrollReveal.tsx`](src/components/ScrollReveal.tsx) จึงวัด `getBoundingClientRect()` เองบน scroll/resize
-(throttle ด้วย `requestAnimationFrame`) และถ้าการวัดพังเมื่อไหร่ก็ **แสดงทุกอย่างทันที** — fail open เสมอ
+[`ScrollReveal.tsx`](src/components/ScrollReveal.tsx) therefore measures `getBoundingClientRect()`
+itself on scroll and resize (throttled with `requestAnimationFrame`), and if measuring ever fails it
+**reveals everything immediately** — it always fails open.
 
-ทุกอย่างเคารพ `prefers-reduced-motion: reduce` — ถ้าผู้ใช้ปิดอนิเมชัน เนื้อหาแสดงทันทีและ marquee หยุดนิ่ง
+Everything respects `prefers-reduced-motion: reduce`: content appears instantly and the marquee holds
+still.
 
 ## 6. Accessibility checklist
 
-- [x] คอนทราสต์ตัวอักษรผ่าน AA ทั้งสองธีม (ขาว-ดำล้วนได้ 19:1, `muted` บนขาวได้ 4.7:1)
-- [x] Skip link ไปเนื้อหาหลัก (โผล่ตอน focus)
-- [x] โครงสร้าง landmark: `header` / `main` / `footer` + heading ไล่ระดับถูกต้อง
-- [x] `:focus-visible` ใช้ `currentColor` จึงเห็นชัดทั้งบนพื้นขาวและพื้นดำ
-- [x] เมนูมือถือมี `aria-expanded` / `aria-controls`
-- [x] `FitText` เป็น SVG จึงใส่ `role="img"` + `aria-label` ให้อ่านออกเสียงได้
-- [x] การ์ดที่ลอยตามเมาส์เป็นของตกแต่ง ใส่ `aria-hidden` และซ่อนบนอุปกรณ์สัมผัส
-- [x] เนื้อหายังอ่านได้เมื่อปิด JavaScript (`<noscript>` บังคับให้ reveal แสดง)
+- [x] Text contrast passes AA in both themes (pure black on white is 19:1; `muted` on white is 4.7:1)
+- [x] Skip link to the main content, visible on focus
+- [x] Landmark structure: `header` / `main` / `footer`, with headings in order
+- [x] `:focus-visible` uses `currentColor`, so it stays visible on white and on black
+- [x] The mobile menu sets `aria-expanded` / `aria-controls`
+- [x] `FitText` is SVG, so it carries `role="img"` and an `aria-label` to stay readable to assistive tech
+- [x] The cursor-following card is decorative: `aria-hidden` and hidden on touch devices
+- [x] Content is still readable with JavaScript disabled (`<noscript>` forces the reveals visible)
 
-## 7. ไฟล์ Figma
+## 7. Figma file
 
 [Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK)
 
-- **01 · Foundations** — color token ทั้งสองธีม (ผูกเป็น Figma Variables จริง) + type scale
-- **02 · Screens** — Desktop 1440px เต็มหน้า และ Mobile 390px
+- **01 · Foundations** — colour tokens for both themes (real Figma Variables) plus the type scale
+- **02 · Screens** — the full landing page at Desktop 1440px and Mobile 390px
 
-> Figma ยังไม่มี Inter Tight ในไฟล์นี้จึงใช้ Inter Bold + tracking -4.5% ซึ่งให้หน้าตาใกล้เคียงมาก
-> ส่วนแผน Starter จำกัด collection ละ 1 mode จึงแยกเป็น `Mono · Light` กับ `Mono · Dark`
+> Inter Tight is not available in that file, so it uses Inter Bold with -4.5% tracking, which looks
+> very close. The Starter plan also limits a collection to one mode, hence the split into
+> `Mono · Light` and `Mono · Dark`.
 
-## 8. เพิ่มเซคชันใหม่ยังไง
+## 8. Adding a new section
 
 ```tsx
 // src/components/Writing.tsx
@@ -145,12 +157,12 @@ export default function Writing() {
     <section id="writing" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
         <SectionLabel no="06" title="Writing" description="..." />
-        {/* ใส่ .reveal ให้ลูก ๆ เพื่อให้อนิเมชันทำงานอัตโนมัติ */}
+        {/* add .reveal to children and the animation works automatically */}
       </div>
     </section>
   );
 }
 ```
 
-แล้วเพิ่มเข้า `src/app/page.tsx` และเพิ่มลิงก์ใน `navItems` ที่ `src/content/profile.ts`
-— ทั้งเมนูบนและสารบัญกลางหน้าจะอัปเดตเอง
+Then add it to `src/app/page.tsx` and add a link to `navItems` in `src/content/profile.ts` — both the
+top nav and the numbered index update themselves.

@@ -1,9 +1,9 @@
 import { navItems } from "@/content/profile";
 
-/** สารบัญแบบมีเลขกำกับ — คลิกกระโดดไปแต่ละเซคชัน */
+/** Numbered index — jumps to each section. */
 export default function IndexList() {
   return (
-    <nav aria-label="สารบัญ" className="shell">
+    <nav aria-label="Section index" className="shell">
       <ul className="rule">
         {navItems.map((item, i) => (
           <li

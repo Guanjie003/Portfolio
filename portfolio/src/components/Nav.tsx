@@ -28,7 +28,7 @@ export default function Nav() {
         scrolled ? "border-b border-line bg-paper/85 backdrop-blur-md" : "border-b border-transparent"
       }`}
     >
-      <nav className="shell flex h-14 items-center justify-between" aria-label="เมนูหลัก">
+      <nav className="shell flex h-14 items-center justify-between" aria-label="Main">
         <a href="#top" className="label font-medium">
           {profile.name}
           <span className="text-muted">™</span>

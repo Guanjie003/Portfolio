@@ -25,10 +25,10 @@ export default function Experience() {
               </div>
 
               <div className="md:col-span-4">
-                <p className="thai-tight text-muted">{job.summary}</p>
+                <p className="leading-relaxed text-muted">{job.summary}</p>
                 <ul className="mt-4 space-y-2">
                   {job.highlights.map((highlight) => (
-                    <li key={highlight} className="thai-tight flex gap-3 text-sm">
+                    <li key={highlight} className="flex gap-3 text-sm leading-relaxed">
                       <span className="text-muted" aria-hidden="true">
                         —
                       </span>

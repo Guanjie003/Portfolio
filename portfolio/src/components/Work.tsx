@@ -8,7 +8,7 @@ export default function Work() {
   const thumbRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<number | null>(null);
 
-  // ให้การ์ดตัวอย่างลอยตามเมาส์ — เขียนตรงเข้า style เพื่อไม่ให้ re-render ทุกเฟรม
+  // Trail the preview card behind the cursor — written straight to style so we do not re-render each frame
   const onMove = useCallback((e: React.MouseEvent) => {
     const el = thumbRef.current;
     if (!el) return;
@@ -28,7 +28,7 @@ export default function Work() {
         <SectionLabel
           no="01"
           title="Selected work"
-          description="เลือกมาเฉพาะโปรเจคที่เล่าได้ว่าโจทย์คืออะไร ตัดสินใจอย่างไร และผลลัพธ์เป็นแบบไหน"
+          description="Only the projects I can talk through properly — what the problem was, what I decided, and what came out of it."
         />
       </div>
 
@@ -47,7 +47,7 @@ export default function Work() {
 
                 <h3 className="display display-lg md:col-span-5">{project.title}</h3>
 
-                <p className="work-muted thai-tight text-sm text-muted md:col-span-3">
+                <p className="work-muted text-sm leading-snug text-muted md:col-span-3">
                   {project.tagline}
                 </p>
 
@@ -85,7 +85,7 @@ export default function Work() {
         ))}
       </ul>
 
-      {/* การ์ดตัวอย่างที่ลอยตามเมาส์ — ตกแต่งล้วน จึงซ่อนจาก screen reader */}
+      {/* Cursor-following preview card — decorative only, so hidden from screen readers */}
       <div
         ref={thumbRef}
         aria-hidden="true"

@@ -1,32 +1,35 @@
 # Portfolio — Guanjie
 
-เว็บพอร์ตโฟลิโอหน้าเดียวสไตล์ **brutalist editorial** — ขาว-ดำล้วน ตัวอักษรใหญ่เต็มจอ ไม่มีสีเน้น
-สร้างด้วย **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4** ครบทั้ง 3 ส่วน: **Design → Coding → Deploy**
+A single-page portfolio in a **brutalist editorial** style — black and white only, oversized type,
+no accent colour. Built with **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, covering
+all three parts: **Design → Coding → Deploy**.
 
 | | |
 | --- | --- |
-| ดีไซน์ (Figma) | [Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK) |
-| เอกสารดีไซน์ | [DESIGN.md](DESIGN.md) |
-| เนื้อหาทั้งเว็บ | [`src/content/profile.ts`](src/content/profile.ts) |
+| Design (Figma) | [Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK) |
+| Design notes | [DESIGN.md](DESIGN.md) |
+| All site content | [`src/content/profile.ts`](src/content/profile.ts) |
 
 ---
 
 ## 1. Design
 
-ไฟล์ Figma แบ่งเป็น 2 หน้า:
+The Figma file has two pages:
 
-- **01 · Foundations** — color token ทั้งสองธีม (ผูกเป็น Figma Variables จริง ไม่ใช่สี hardcode) + type scale
-- **02 · Screens** — หน้า Landing เต็มขนาด Desktop 1440px และ Mobile 390px
+- **01 · Foundations** — colour tokens for both themes (wired up as real Figma Variables, not
+  hardcoded fills) plus the type scale
+- **02 · Screens** — the full landing page at Desktop 1440px and Mobile 390px
 
-ทั้งเว็บใช้สีแค่ 4 token ต่อธีม (`paper` / `ink` / `muted` / `line`) ค่าใน Figma กับ CSS custom property
-ใน [`src/app/globals.css`](src/app/globals.css) เป็นชุดเดียวกัน ถ้าจะเปลี่ยนธีม ให้แก้ที่ `globals.css`
-แล้วอัปเดต variable ใน Figma ให้ตรงกัน
+The whole site runs on four colour tokens per theme (`paper` / `ink` / `muted` / `line`). The values
+in Figma and the CSS custom properties in [`src/app/globals.css`](src/app/globals.css) are the same
+set — to change the theme, edit `globals.css` and update the matching Figma variables.
 
-> **หมายเหตุ:** Figma แผน Starter จำกัดให้ collection ละ 1 mode จึงแยกเป็น 2 collection
-> (`Mono · Light (default)` และ `Mono · Dark`) แทนการใช้ mode สลับธีมในไฟล์เดียว
-> และยังไม่มี Inter Tight ในไฟล์ จึงใช้ Inter Bold + tracking -4.5% แทน
+> **Notes:** Figma's Starter plan allows only one mode per collection, so the tokens are split into
+> two collections (`Mono · Light (default)` and `Mono · Dark`) rather than one collection with a
+> theme mode. Inter Tight is also not available in that file, so the mockups use Inter Bold with
+> -4.5% tracking, which is very close.
 
-รายละเอียดหลักการออกแบบ token, type scale, motion และ accessibility checklist อยู่ใน [DESIGN.md](DESIGN.md)
+Design rationale, type scale, motion and the accessibility checklist all live in [DESIGN.md](DESIGN.md).
 
 ## 2. Coding
 
@@ -37,90 +40,108 @@ npm run build    # production build
 npm run lint
 ```
 
-### โครงสร้าง
+### Structure
 
 ```
 src/
 ├─ app/
-│  ├─ layout.tsx            # ฟอนต์, metadata, สคริปต์กันจอกระพริบตอนสลับธีม
-│  ├─ page.tsx              # ประกอบทุกเซคชัน + JSON-LD (schema.org Person)
-│  ├─ globals.css           # design token + utility + scroll reveal
-│  ├─ icon.tsx              # favicon สร้างอัตโนมัติจากชื่อ
-│  ├─ opengraph-image.tsx   # การ์ด OG 1200×630 สร้างอัตโนมัติ
+│  ├─ layout.tsx            # fonts, metadata, no-flash theme script
+│  ├─ page.tsx              # composes every section + JSON-LD (schema.org Person)
+│  ├─ globals.css           # design tokens, utilities, scroll reveal
+│  ├─ icon.tsx              # favicon generated from the name
+│  ├─ opengraph-image.tsx   # 1200x630 share card, generated
 │  ├─ sitemap.ts / robots.ts
-├─ components/              # Nav, Hero, About, Skills, Projects, Experience, Contact, Footer
-└─ content/profile.ts       # ✏️ ข้อมูลทั้งหมดอยู่ที่ไฟล์นี้ไฟล์เดียว
+├─ components/              # Nav, Hero, IndexList, Statement, Marquee, Work,
+│                           # About, Capabilities, Experience, Contact, Footer
+└─ content/profile.ts       # ✏️ every piece of copy lives in this one file
 ```
 
-เซคชันบนหน้าแรก: Hero → Index → Statement → Marquee → Work → About → Capabilities → Experience → Contact → Footer
+Section order on the home page:
+Hero → Index → Statement → Marquee → Work → About → Capabilities → Experience → Contact → Footer
 
-**Server component เป็นค่าเริ่มต้น** — มีแค่ 4 ไฟล์ที่เป็น client component คือ
-`Nav.tsx` (เมนูมือถือ), `ThemeToggle.tsx`, `ScrollReveal.tsx` และ `Work.tsx` (การ์ดที่ลอยตามเมาส์)
-ทำให้ JavaScript ที่ส่งถึงเบราว์เซอร์อยู่ที่ **~103 kB** (First Load JS)
+**Server components by default** — only four files are client components: `Nav.tsx` (mobile menu),
+`ThemeToggle.tsx`, `ScrollReveal.tsx` and `Work.tsx` (the cursor-following preview card). That keeps
+the JavaScript shipped to the browser at roughly **103 kB** First Load JS.
 
-### แก้เนื้อหา
+### Editing the content
 
-เปิด [`src/content/profile.ts`](src/content/profile.ts) แล้วแก้ที่เดียวจบ — ชื่อ, headline, about,
-skills, projects, experience, social links ทุกเซคชันอ่านข้อมูลจากไฟล์นี้
+Open [`src/content/profile.ts`](src/content/profile.ts) and edit it in one place — name, tagline,
+about, skills, projects, experience and social links. Every section reads from that file.
 
-เพิ่ม `resume.pdf` ลงใน `public/` แล้วลิงก์ Resume จะทำงานทันที
+Drop a `resume.pdf` into `public/` and the Resume link works immediately.
 
-ชื่อบนหน้าแรกกว้างเต็มจอเสมอด้วย [`FitText.tsx`](src/components/FitText.tsx) (SVG + `textLength`)
-เปลี่ยน `displayName` ให้ยาว/สั้นแค่ไหนก็ยังพอดีขอบ ไม่ต้องแก้ตัวเลขขนาดฟอนต์
+The name on the home page always spans the full width via
+[`FitText.tsx`](src/components/FitText.tsx) (SVG + `textLength`), so you can make `displayName`
+longer or shorter without touching any font-size values.
 
-### ⚠️ browserslist — อย่าลบออก
+### Adding another language
 
-`package.json` ประกาศ `browserslist` ไว้โดยตั้งใจ:
+The site is English-only and ships just Inter Tight and Inter. If you add copy in a script those
+fonts do not cover — Thai, for example — add the matching font in `layout.tsx`:
+
+```ts
+const thai = Noto_Sans_Thai({ subsets: ["thai"], variable: "--font-thai", display: "swap" });
+```
+
+then append `var(--font-thai)` to the `--font-sans` and `--font-display` stacks in `globals.css`
+and add the variable to the `<body>` class list.
+
+### ⚠️ browserslist — do not remove
+
+`package.json` declares `browserslist` deliberately:
 
 ```json
 "browserslist": ["chrome 111", "edge 111", "firefox 111", "opera 97", "safari 16.4"]
 ```
 
-รีโปแม่ (CoreUI Vue) มี `browserslist` ที่ตั้งค่า `"> 1%", "not ie <= 9"` อยู่ที่ root
-และ browserslist จะไล่หาไฟล์ config **ขึ้นไปตามลำดับโฟลเดอร์** ถ้าโปรเจคนี้ไม่ประกาศของตัวเอง
-ค่าของรีโปแม่จะถูกใช้แทน → Next คอมไพล์เป็น ES5 → bundle บวมจาก **105 kB เป็น 339 kB**
+The parent repo (CoreUI Vue) has its own `browserslist` at the root set to `"> 1%", "not ie <= 9"`,
+and browserslist **walks up the directory tree** looking for config. Without a local declaration
+the parent's values win, Next compiles down to ES5, and the bundle balloons from **103 kB to 339 kB**.
 
-ลบบรรทัดนี้เมื่อไหร่ ปัญหากลับมาทันที (เกิดทั้งบนเครื่องและบน Vercel)
+Delete that line and the problem comes straight back, both locally and on Vercel.
 
 ## 3. Deploy
 
-### Vercel (แนะนำ)
+### Vercel (recommended)
 
-1. push โค้ดขึ้น GitHub/GitLab
-2. Vercel → **Add New… → Project** → เลือกรีโปนี้
-3. **สำคัญ:** ตั้ง **Root Directory** เป็น `portfolio`
-   (ถ้าไม่ตั้ง Vercel จะเจอ `package.json` ของ CoreUI ที่ root แล้ว build ผิดโปรเจค)
-4. Framework Preset จะขึ้นเป็น **Next.js** อัตโนมัติ — ไม่ต้องแก้ build command
-5. ตั้ง Environment Variable:
+1. Push the code to GitHub/GitLab
+2. Vercel → **Add New… → Project** → pick this repo
+3. **Important:** set **Root Directory** to `portfolio`
+   (otherwise Vercel finds the CoreUI `package.json` at the root and builds the wrong project)
+4. The framework preset detects **Next.js** automatically — no need to change the build command
+5. Set the environment variable:
 
    | Key | Value |
    | --- | --- |
-   | `NEXT_PUBLIC_SITE_URL` | `https://<โดเมนของคุณ>` |
+   | `NEXT_PUBLIC_SITE_URL` | `https://<your-domain>` |
 
-   ค่านี้ใช้สร้าง canonical URL, `sitemap.xml` และ OG image — ถ้าไม่ตั้งจะ fallback เป็น
-   `https://your-portfolio.vercel.app` ตามที่กำหนดใน `src/content/profile.ts`
-6. Deploy — หลังจากนี้ทุก push ขึ้น branch หลักจะ deploy อัตโนมัติ และ PR ทุกอันได้ preview URL
+   It is used for canonical URLs, `sitemap.xml` and the OG image. Without it the site falls back to
+   `https://your-portfolio.vercel.app` as defined in `src/content/profile.ts`.
+6. Deploy — from then on every push to the main branch deploys automatically, and every PR gets a
+   preview URL
 
-### ตรวจก่อน deploy
+### Check before deploying
 
 ```bash
 npm run lint && npm run build
 ```
 
-`npm run build` ต้องขึ้น First Load JS ประมาณ **103–105 kB** ถ้าเห็นเลขระดับ 300 kB
-แปลว่า `browserslist` ใน `package.json` หายไป (ดูหัวข้อด้านบน)
+`npm run build` should report First Load JS around **103 kB**. If you see numbers in the 300 kB
+range, the `browserslist` entry in `package.json` has gone missing (see above).
 
-### ทางเลือกอื่น
+### Alternatives
 
-- **Docker + nginx** — รีโปแม่มี `Dockerfile` และ `nginx.conf` อยู่แล้ว ปรับให้ build โฟลเดอร์นี้แทนได้
-- **Static export** — เว็บนี้เป็น static ทั้งหมด เพิ่ม `output: "export"` ใน `next.config.ts`
-  แล้วเอา `out/` ไปวางบน GitHub Pages / S3 ได้ (แต่ `icon.tsx` และ `opengraph-image.tsx`
-  ต้องเปลี่ยนเป็นไฟล์ภาพจริงแทน เพราะ static export สร้าง OG image ตอน runtime ไม่ได้)
+- **Docker + nginx** — the parent repo already has a `Dockerfile` and `nginx.conf` that can be
+  pointed at this folder instead
+- **Static export** — the site is fully static, so adding `output: "export"` to `next.config.ts`
+  lets you drop `out/` on GitHub Pages or S3. Note that `icon.tsx` and `opengraph-image.tsx` would
+  need to become real image files, since a static export cannot generate them at runtime.
 
-## SEO / metadata ที่มีให้แล้ว
+## SEO / metadata included
 
 - Metadata API: title template, description, Open Graph, Twitter card
-- `opengraph-image.tsx` สร้างการ์ดแชร์ 1200×630 อัตโนมัติจากข้อมูลใน `profile.ts`
-- `sitemap.xml` และ `robots.txt` สร้างจากโค้ด
-- JSON-LD `schema.org/Person` ฝังในหน้าแรก
-- Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) ตั้งไว้ใน `next.config.ts`
+- `opengraph-image.tsx` generates a 1200×630 share card from the data in `profile.ts`
+- `sitemap.xml` and `robots.txt` generated from code
+- JSON-LD `schema.org/Person` embedded on the home page
+- Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`) set in `next.config.ts`

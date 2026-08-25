@@ -18,8 +18,9 @@ export default function Contact() {
         </a>
 
         <div className="reveal mt-16 grid gap-8 border-t border-line pt-8 md:grid-cols-12">
-          <p className="thai-tight max-w-md text-muted md:col-span-6">
-            เล่าโจทย์มาคร่าว ๆ ได้เลย ผมตอบกลับภายใน 1–2 วันทำการ และยินดีคุยฟรีรอบแรกเพื่อดูว่าเราเหมาะกันไหม
+          <p className="max-w-md leading-relaxed text-muted md:col-span-6">
+            Send over a rough outline of the problem. I reply within one or two working days, and the
+            first call is free so we can both see whether it is a good fit.
           </p>
 
           <ul className="flex flex-wrap gap-x-8 gap-y-3 md:col-span-6 md:justify-end">

@@ -19,7 +19,7 @@ export default function ThemeToggle() {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* localStorage อาจถูกปิด — ไม่เป็นไร */
+      /* localStorage may be unavailable — not a problem */
     }
     setTheme(next);
   }
@@ -28,7 +28,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={theme === "dark" ? "เปลี่ยนเป็นธีมสว่าง" : "เปลี่ยนเป็นธีมมืด"}
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
       className="label text-muted transition-colors hover:text-ink"
     >
       {mounted ? (theme === "dark" ? "Light" : "Dark") : "Theme"}

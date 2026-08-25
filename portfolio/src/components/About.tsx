@@ -10,7 +10,7 @@ export default function About() {
         <div className="grid gap-10 pb-16 md:grid-cols-12 md:gap-8">
           <div className="reveal space-y-6 md:col-span-7">
             {profile.about.map((paragraph, i) => (
-              <p key={i} className="thai-tight text-xl leading-relaxed md:text-2xl">
+              <p key={i} className="text-xl leading-relaxed md:text-2xl">
                 {paragraph}
               </p>
             ))}

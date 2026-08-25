@@ -4,7 +4,7 @@ type Props = {
   description?: string;
 };
 
-/** หัวเซคชันแบบเดียวกันทั้งเว็บ: เลข + ป้ายตัวพิมพ์ใหญ่ ซ้าย / คำอธิบายขวา */
+/** Shared section header: number + uppercase label on the left, description on the right. */
 export default function SectionLabel({ no, title, description }: Props) {
   return (
     <div className="reveal grid gap-6 py-8 md:grid-cols-12 md:gap-8">
@@ -13,7 +13,7 @@ export default function SectionLabel({ no, title, description }: Props) {
         <span className="text-ink">{title}</span>
       </div>
       {description ? (
-        <p className="thai-tight max-w-xl text-lg text-muted md:col-span-8 md:text-xl">{description}</p>
+        <p className="max-w-xl text-lg leading-snug text-muted md:col-span-8 md:text-xl">{description}</p>
       ) : null}
     </div>
   );
