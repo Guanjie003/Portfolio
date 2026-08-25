@@ -6,6 +6,7 @@ all three parts: **Design → Coding → Deploy**.
 
 | | |
 | --- | --- |
+| Live site | [portfolio-mxan.vercel.app](https://portfolio-mxan.vercel.app) |
 | Design (Figma) | [Portfolio — Design System & Screens](https://www.figma.com/design/txEBfMOIt0Ra4lt6PKcFjK) |
 | Design notes | [DESIGN.md](DESIGN.md) |
 | All site content | [`src/content/profile.ts`](src/content/profile.ts) |
@@ -116,8 +117,10 @@ sits above the project, so keep the line even though a clean checkout on CI woul
    | --- | --- |
    | `NEXT_PUBLIC_SITE_URL` | `https://<your-domain>` |
 
-   It is used for canonical URLs, `sitemap.xml` and the OG image. Without it the site falls back to
-   `https://your-portfolio.vercel.app` as defined in `src/content/profile.ts`.
+   **Only needed for a custom domain.** `resolveSiteUrl()` in `src/content/profile.ts` already reads
+   Vercel's own `VERCEL_PROJECT_PRODUCTION_URL`, so a plain Vercel deployment resolves its real URL
+   with nothing configured. Setting the variable to an empty value is safe — blank and unparseable
+   candidates are skipped rather than crashing the build.
 5. Deploy — from then on every push to the production branch deploys automatically, and every PR gets
    a preview URL
 

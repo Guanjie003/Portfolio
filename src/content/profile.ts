@@ -204,7 +204,7 @@ export function sectionNo(id: string) {
 }
 
 /** Last resort, only used when nothing else resolves. */
-const FALLBACK_SITE_URL = "https://your-portfolio.vercel.app";
+const FALLBACK_SITE_URL = "https://portfolio-mxan.vercel.app";
 
 /**
  * The canonical origin, used for metadataBase, the sitemap and the OG image.
