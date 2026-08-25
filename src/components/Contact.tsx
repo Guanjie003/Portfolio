@@ -1,10 +1,10 @@
-import { profile, socials } from "@/content/profile";
+import { profile, sectionNo, socials } from "@/content/profile";
 
 export default function Contact() {
   return (
     <section id="contact" className="invert scroll-mt-16 py-24 md:py-32">
       <div className="shell">
-        <p className="label reveal text-muted">05 — Contact</p>
+        <p className="label reveal text-muted">{sectionNo("contact")} — Contact</p>
 
         <a href={`mailto:${profile.email}`} className="mt-10 block">
           <span

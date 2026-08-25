@@ -1,4 +1,4 @@
-import { skillGroups } from "@/content/profile";
+import { sectionNo, skillGroups } from "@/content/profile";
 import SectionLabel from "./SectionLabel";
 
 export default function Capabilities() {
@@ -6,7 +6,7 @@ export default function Capabilities() {
     <section id="capabilities" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
         <SectionLabel
-          no="03"
+          no={sectionNo("capabilities")}
           title="Capabilities"
           description="Not everything I have ever touched — just what I reach for on real projects and can explain the reasoning behind."
         />

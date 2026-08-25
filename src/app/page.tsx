@@ -9,7 +9,7 @@ import Marquee from "@/components/Marquee";
 import Nav from "@/components/Nav";
 import Statement from "@/components/Statement";
 import Work from "@/components/Work";
-import { profile, projects, siteUrl, socials } from "@/content/profile";
+import { profile, projects, siteUrl, skillGroups, socials } from "@/content/profile";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -19,7 +19,7 @@ const personSchema = {
   email: `mailto:${profile.email}`,
   url: siteUrl,
   sameAs: socials.filter((s) => s.href.startsWith("http")).map((s) => s.href),
-  knowsAbout: projects.flatMap((p) => p.stack),
+  knowsAbout: skillGroups.flatMap((group) => group.items),
 };
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
         <IndexList />
         <Statement />
         <Marquee />
-        <Work />
+        {projects.length > 0 ? <Work /> : null}
         <About />
         <Capabilities />
         <Experience />

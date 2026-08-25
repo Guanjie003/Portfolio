@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { projects } from "@/content/profile";
+import { projects, sectionNo } from "@/content/profile";
 import SectionLabel from "./SectionLabel";
 
 export default function Work() {
@@ -26,7 +26,7 @@ export default function Work() {
     <section id="work" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
         <SectionLabel
-          no="01"
+          no={sectionNo("work")}
           title="Selected work"
           description="Only the projects I can talk through properly — what the problem was, what I decided, and what came out of it."
         />

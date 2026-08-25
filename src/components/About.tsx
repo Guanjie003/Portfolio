@@ -1,11 +1,11 @@
-import { profile } from "@/content/profile";
+import { profile, sectionNo } from "@/content/profile";
 import SectionLabel from "./SectionLabel";
 
 export default function About() {
   return (
     <section id="about" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
-        <SectionLabel no="02" title="About" />
+        <SectionLabel no={sectionNo("about")} title="About" />
 
         <div className="grid gap-10 pb-16 md:grid-cols-12 md:gap-8">
           <div className="reveal space-y-6 md:col-span-7">

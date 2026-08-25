@@ -51,7 +51,7 @@ export const profile = {
   /** Drop resume.pdf into /public and this link works immediately. */
   resumeUrl: "/resume.pdf",
   about: [
-    "I am in my third year of software engineering at Mae Fah Luang University. Most of what I know came from building things end to end — a React and Java news platform for a course final, an admin portal with Google sign-in and OTP, and this site.",
+    "I am in my third year of software engineering at Mae Fah Luang University. Most of what I know came from building things end to end rather than from lectures — course projects and side projects, front end through to the service behind it.",
     "I like working across the whole stack because it is the only way to see how a decision on one side lands on the other. What I want next is an internship where the code has real users and someone more experienced reviews my pull requests.",
   ],
   facts: [
@@ -106,46 +106,25 @@ export const marqueeItems = [
   "Tailwind",
 ];
 
-export const projects: Project[] = [
-  {
-    no: "01",
-    slug: "mfu-news",
-    title: "MFU News",
-    tagline: "Course final project — campus news and activities",
-    // TODO: describe what the app actually does for its users, and add a result if you have one
-    description:
-      "A news and activity platform split into a React front end and a Java service behind it. Built as the final project for a university course, with the two halves developed and run separately.",
-    year: "2024",
-    role: "Full-stack",
-    stack: ["React", "Java", "Maven", "REST API"],
-    links: { repo: "https://github.com/Guanjie003/final-project-mfu-news" },
-  },
-  {
-    no: "02",
-    slug: "admin-portal",
-    title: "Admin Portal",
-    tagline: "Multi-app back office with Google sign-in and OTP",
-    // TODO: this is read off the source — correct anything wrong and say what it was built for
-    description:
-      "A Vue admin portal built on CoreUI: Google OAuth sign-in with an OTP second factor, a dashboard listing the apps a user can reach, multi-language content editing, QR code generation and Excel export.",
-    year: "2025",
-    role: "Frontend",
-    stack: ["Vue", "Vuex", "CoreUI", "Google OAuth"],
-    links: {},
-  },
-  {
-    no: "03",
-    slug: "portfolio",
-    title: "This Portfolio",
-    tagline: "Monochrome editorial site, designed and built from scratch",
-    description:
-      "Designed in Figma as a small token system, then built as a static Next.js site. Type-driven layout with no accent colour, a name that fits the viewport at any width, and around 103 kB of JavaScript on first load.",
-    year: "2026",
-    role: "Design + Build",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Figma"],
-    links: { repo: "https://github.com/Guanjie003/Portfolio" },
-  },
-];
+/**
+ * Work samples. Empty for now — the Work section and its index entry disappear
+ * on their own while this is empty, and come back as soon as it is not.
+ *
+ * To add one, drop an object in and renumber `no` from "01" downwards:
+ *
+ *   {
+ *     no: "01",
+ *     slug: "mfu-news",
+ *     title: "MFU News",
+ *     tagline: "Course final project — campus news and activities",
+ *     description: "What it does, what you decided, what came out of it.",
+ *     year: "2024",
+ *     role: "Full-stack",
+ *     stack: ["React", "Java", "Maven", "REST API"],
+ *     links: { repo: "https://github.com/Guanjie003/final-project-mfu-news" },
+ *   },
+ */
+export const projects: Project[] = [];
 
 export const jobs: Job[] = [
   {
@@ -156,19 +135,35 @@ export const jobs: Job[] = [
     summary: "Third year, currently taking Emerging Technology for Software Engineering.",
     // TODO: swap these for the coursework and results you actually want to show
     highlights: [
-      "Built MFU News as a course final project, React front end on a Java service",
+      "Course final project: a React front end on a Java service",
       "Coursework across web development, databases and software engineering practice",
     ],
   },
 ];
 
-export const navItems = [
-  { no: "01", label: "Work", href: "#work" },
-  { no: "02", label: "About", href: "#about" },
-  { no: "03", label: "Capabilities", href: "#capabilities" },
-  { no: "04", label: "Education", href: "#experience" },
-  { no: "05", label: "Contact", href: "#contact" },
+/**
+ * Sections that actually render, in page order. Work drops out while there are
+ * no projects, and everything below it renumbers itself.
+ */
+export const sections = [
+  ...(projects.length > 0 ? [{ id: "work", label: "Work" }] : []),
+  { id: "about", label: "About" },
+  { id: "capabilities", label: "Capabilities" },
+  { id: "experience", label: "Education" },
+  { id: "contact", label: "Contact" },
 ];
+
+export const navItems = sections.map((section, i) => ({
+  no: String(i + 1).padStart(2, "0"),
+  label: section.label,
+  href: `#${section.id}`,
+}));
+
+/** The number shown in a section header, e.g. "02". */
+export function sectionNo(id: string) {
+  const i = sections.findIndex((section) => section.id === id);
+  return i === -1 ? "" : String(i + 1).padStart(2, "0");
+}
 
 /** Used in production — change this to your own domain. */
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://your-portfolio.vercel.app";

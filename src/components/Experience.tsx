@@ -1,11 +1,11 @@
-import { jobs } from "@/content/profile";
+import { jobs, sectionNo } from "@/content/profile";
 import SectionLabel from "./SectionLabel";
 
 export default function Experience() {
   return (
     <section id="experience" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
-        <SectionLabel no="04" title="Education" />
+        <SectionLabel no={sectionNo("experience")} title="Education" />
 
         <ol className="border-t border-line">
           {jobs.map((job, i) => (
