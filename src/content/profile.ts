@@ -112,25 +112,57 @@ export const marqueeItems = [
   "Nginx",
 ];
 
-/**
- * Work samples. Empty for now — the Work section and its index entry disappear
- * on their own while this is empty, and come back as soon as it is not.
- *
- * To add one, drop an object in and renumber `no` from "01" downwards:
- *
- *   {
- *     no: "01",
- *     slug: "mfu-news",
- *     title: "MFU News",
- *     tagline: "Course final project — campus news and activities",
- *     description: "What it does, what you decided, what came out of it.",
- *     year: "2024",
- *     role: "Full-stack",
- *     stack: ["React", "Java", "Maven", "REST API"],
- *     links: { repo: "https://github.com/Guanjie003/final-project-mfu-news" },
- *   },
- */
-export const projects: Project[] = [];
+export const projects: Project[] = [
+  {
+    no: "01",
+    slug: "land-cover",
+    title: "Land Cover Semantic Segmentation",
+    tagline: "Deep learning pipeline for land-use mapping",
+    description:
+      "Owned the pipeline end to end — dataset loading, model and loss construction, training loop, validation, checkpointing, evaluation and inference — for land-use segmentation on the OpenEarthMap dataset. A U-Net with an EfficientNet-B4 encoder produces 8-class pixel predictions, trained with a combined CrossEntropy and Dice loss. Mixed-precision training halved GPU memory use, and tiled inference let large scenes be predicted without downsampling small features away.",
+    year: "2025–now",
+    role: "Owner",
+    stack: ["PyTorch", "EfficientNet-B4", "OpenCV", "NumPy"],
+    links: { repo: "https://github.com/Leng201202/lulc_cei" },
+  },
+  {
+    no: "02",
+    slug: "e-questionnaires",
+    title: "Digital University E-Questionnaires",
+    tagline: "Survey platform for educational institutions",
+    description:
+      "An enterprise questionnaire platform on a decoupled Vue.js and Node/Express architecture, containerised end to end with Docker Compose and Nginx so the full stack deploys with a single command — 448 commits across the team. Built the dynamic form-builder that lets administrators compose questionnaires without a developer, and the API integration layer wiring the front end to the backend. Contributed role-based access control and a real-time analytics dashboard backed by MongoDB 7.0 with Redis caching on read-heavy queries.",
+    year: "2025–26",
+    role: "Full-stack",
+    stack: ["Vue.js", "Node.js", "Express", "MongoDB", "Redis", "Docker", "Nginx"],
+    links: { repo: "https://github.com/Napus-BackendDev/Digital-University-Project-SE" },
+  },
+  {
+    no: "03",
+    slug: "dormitory-booking",
+    title: "Dormitory Booking System",
+    tagline: "Booking and maintenance platform for a dormitory",
+    description:
+      "Owned the entire front end, built with Next.js 14 and React 18 in TypeScript, styled with Tailwind CSS and composed from Radix UI primitives so components were keyboard-accessible by default. Booking and request flows validate client-side with react-hook-form, with Recharts dashboards and toast notifications, responsive across mobile and desktop. Built against the team’s OpenAPI specification so the front end could go in parallel with the backend rather than waiting on it.",
+    year: "2025",
+    role: "Frontend owner",
+    stack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Radix UI"],
+    links: { repo: "https://github.com/Napus-BackendDev/Dormitory-Booking-System" },
+  },
+  {
+    no: "04",
+    slug: "fortune",
+    title: "Fortune",
+    tagline: "Tarot and horoscope app, live on Google Play",
+    description:
+      "A daily tarot and horoscope companion: a personalised card draw each day, zodiac horoscopes by day, week and month, and a saved history so past readings can be looked back on. Designed the interface and built the front end; published on Google Play by the SE61 MFU Software Engineering team.",
+    year: "2025",
+    // TODO: add the framework you built the app in, e.g. Flutter or React Native
+    role: "Design + Frontend",
+    stack: ["UI design", "Mobile frontend"],
+    links: { demo: "https://play.google.com/store/apps/details?id=com.napus1234.fortune" },
+  },
+];
 
 export const jobs: Job[] = [
   {
