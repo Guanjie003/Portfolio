@@ -5,7 +5,7 @@ export default function Experience() {
   return (
     <section id="experience" className="scroll-mt-16 pt-20 md:pt-28">
       <div className="shell">
-        <SectionLabel no="04" title="Experience" />
+        <SectionLabel no="04" title="Education" />
 
         <ol className="border-t border-line">
           {jobs.map((job, i) => (
@@ -16,7 +16,7 @@ export default function Experience() {
             >
               <div className="label flex justify-between text-muted md:col-span-3 md:flex-col md:gap-2">
                 <span>{job.period}</span>
-                <span>{job.location}</span>
+                {job.location ? <span>{job.location}</span> : null}
               </div>
 
               <div className="md:col-span-5">

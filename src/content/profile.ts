@@ -1,6 +1,8 @@
 /**
  * ✏️ The only file you need to edit to change the whole site.
- * Swap the copy, links and projects below for your own.
+ *
+ * Anything marked TODO is a guess drawn from the GitHub repos and course work —
+ * read it, correct it, then delete the marker.
  */
 
 export type Social = {
@@ -36,27 +38,26 @@ export type SkillGroup = {
 };
 
 export const profile = {
-  name: "Guanjie",
+  name: "Guan Jie",
   /** The name on the home page — always stretched to the full width. Shorter names render bigger. */
-  displayName: "Guanjie",
-  fullName: "Guanjie",
-  role: "Full-Stack Developer",
+  displayName: "Guan Jie",
+  fullName: "Guan Jie Khamchan",
+  role: "Software Engineering Student",
   /** One line in the meta bar under the hero. */
   tagline:
-    "I design, build and ship web apps end to end — from the first screen to the last line of the pipeline.",
-  location: "Chiang Rai, Thailand",
-  availability: "Available for work",
+    "Software engineering student at Mae Fah Luang University. I build full-stack web apps for coursework and side projects, and I am looking for an internship where I can do it on a real team.",
+  availability: "Open to internships",
   email: "engguanjie@gmail.com",
   /** Drop resume.pdf into /public and this link works immediately. */
   resumeUrl: "/resume.pdf",
   about: [
-    "I started out wanting to know how the websites I used every day actually worked, and never stopped writing code. These days I work across the whole stack — laying out screens in Figma, wiring up APIs, and looking after the pipeline all the way to production.",
-    "What I care about most is load speed, accessibility, and code someone else can read. A good project is one that can still be changed a year from now.",
+    "I am in my third year of software engineering at Mae Fah Luang University. Most of what I know came from building things end to end — a React and Java news platform for a course final, an admin portal with Google sign-in and OTP, and this site.",
+    "I like working across the whole stack because it is the only way to see how a decision on one side lands on the other. What I want next is an internship where the code has real users and someone more experienced reviews my pull requests.",
   ],
   facts: [
-    { label: "Experience", value: "3+ years" },
-    { label: "Projects shipped", value: "20+" },
-    { label: "Core stack", value: "TypeScript" },
+    { label: "Focus", value: "Full-stack web" },
+    { label: "Studying", value: "SE at MFU" },
+    { label: "Core stack", value: "React / Java" },
     { label: "Languages", value: "EN / TH" },
   ],
 } as const;
@@ -66,140 +67,98 @@ export const statement = ["Design.", "Code.", "Deploy."];
 
 export const socials: Social[] = [
   { label: "GitHub", href: "https://github.com/Guanjie003", handle: "Guanjie003" },
+  // TODO: add your real LinkedIn URL, or delete this entry
   { label: "LinkedIn", href: "https://linkedin.com/in/your-handle", handle: "your-handle" },
   { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
 ];
 
+// TODO: confirm this list — it is inferred from what the repos actually use
 export const skillGroups: SkillGroup[] = [
   {
     name: "Frontend",
-    items: ["TypeScript", "React", "Next.js", "Vue", "Tailwind CSS", "Framer Motion"],
+    items: ["JavaScript", "TypeScript", "React", "Vue", "Next.js", "Tailwind CSS"],
   },
   {
     name: "Backend",
-    items: ["Node.js", "Express", "NestJS", "PostgreSQL", "MongoDB", "REST / GraphQL"],
+    items: ["Java", "Spring Boot", "Node.js", "REST APIs", "MySQL"],
   },
   {
     name: "Design",
-    items: ["Figma", "Design systems", "Wireframing", "Prototyping", "Accessibility"],
+    items: ["Figma", "Design systems", "Wireframing", "Accessibility"],
   },
   {
-    name: "DevOps",
-    items: ["Docker", "GitLab CI", "GitHub Actions", "Vercel", "Nginx", "Linux"],
+    name: "Tools",
+    items: ["Git", "GitHub", "Maven", "Docker", "Vercel"],
   },
 ];
 
 /** Ticker that runs between sections. */
 export const marqueeItems = [
+  "JavaScript",
   "TypeScript",
-  "Next.js",
   "React",
   "Vue",
-  "Node.js",
-  "PostgreSQL",
-  "Docker",
+  "Next.js",
+  "Java",
+  "Spring Boot",
   "Figma",
+  "Git",
   "Tailwind",
-  "CI / CD",
 ];
 
 export const projects: Project[] = [
   {
     no: "01",
-    slug: "marketplace",
-    title: "Zdrive Marketplace",
-    tagline: "Used-car buying and selling platform",
+    slug: "mfu-news",
+    title: "MFU News",
+    tagline: "Course final project — campus news and activities",
+    // TODO: describe what the app actually does for its users, and add a result if you have one
     description:
-      "A marketplace pulling listings, viewing appointments and a dealer dashboard into one place. Rebuilt the search flow so buyers find the right car noticeably faster.",
-    year: "2025",
-    role: "Design + Full-stack",
-    stack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind"],
-    links: { demo: "#", repo: "#" },
+      "A news and activity platform split into a React front end and a Java service behind it. Built as the final project for a university course, with the two halves developed and run separately.",
+    year: "2024",
+    role: "Full-stack",
+    stack: ["React", "Java", "Maven", "REST API"],
+    links: { repo: "https://github.com/Guanjie003/final-project-mfu-news" },
   },
   {
     no: "02",
-    slug: "admin-suite",
-    title: "Ops Admin Suite",
-    tagline: "Back office for the operations team",
+    slug: "admin-portal",
+    title: "Admin Portal",
+    tagline: "Multi-app back office with Google sign-in and OTP",
+    // TODO: this is read off the source — correct anything wrong and say what it was built for
     description:
-      "Consolidated scattered back-office tasks into a single console, with fine-grained permissions, real-time reporting and Excel export.",
-    year: "2024",
-    role: "Frontend lead",
-    stack: ["Vue", "Vuex", "Chart.js", "Docker"],
-    links: { demo: "#", caseStudy: "#" },
+      "A Vue admin portal built on CoreUI: Google OAuth sign-in with an OTP second factor, a dashboard listing the apps a user can reach, multi-language content editing, QR code generation and Excel export.",
+    year: "2025",
+    role: "Frontend",
+    stack: ["Vue", "Vuex", "CoreUI", "Google OAuth"],
+    links: {},
   },
   {
     no: "03",
-    slug: "attendance",
-    title: "Face Check-in",
-    tagline: "Attendance tracking by face scan",
+    slug: "portfolio",
+    title: "This Portfolio",
+    tagline: "Monochrome editorial site, designed and built from scratch",
     description:
-      "Clock in through the browser camera. Face processing runs entirely client-side so no images ever leave the device, with monthly summary reports for HR.",
-    year: "2024",
-    role: "Full-stack",
-    stack: ["Vue", "face-api.js", "Node.js", "MongoDB"],
-    links: { repo: "#" },
-  },
-  {
-    no: "04",
-    slug: "design-system",
-    title: "Sprout Design System",
-    tagline: "Shared component library for the team",
-    description:
-      "Tokens, components and documentation that kept four products visually consistent and made new screens far quicker to assemble.",
-    year: "2023",
-    role: "Design engineer",
-    stack: ["React", "Storybook", "Figma", "CSS variables"],
-    links: { demo: "#" },
-  },
-  {
-    no: "05",
-    slug: "queue-app",
-    title: "Clinic Queue",
-    tagline: "Appointment queueing for clinics",
-    description:
-      "Book ahead, get notified over LINE, and a waiting-room display that calls the next number. Cut average patient wait times measurably.",
-    year: "2023",
-    role: "Full-stack",
-    stack: ["Next.js", "Prisma", "LINE API"],
-    links: { demo: "#", repo: "#" },
+      "Designed in Figma as a small token system, then built as a static Next.js site. Type-driven layout with no accent colour, a name that fits the viewport at any width, and around 103 kB of JavaScript on first load.",
+    year: "2026",
+    role: "Design + Build",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Figma"],
+    links: { repo: "https://github.com/Guanjie003/Portfolio" },
   },
 ];
 
 export const jobs: Job[] = [
   {
-    company: "Freelance",
-    role: "Full-Stack Developer",
-    period: "2024 — Now",
-    location: "Remote",
-    summary:
-      "Building web apps for clients end to end — scoping the problem, designing it, and shipping it to production.",
-    highlights: [
-      "Delivered more than 10 web apps on schedule",
-      "Set up CI/CD so clients can deploy without me",
-      "Lifted client Lighthouse performance scores from 60 to 95+",
-    ],
-  },
-  {
-    company: "Tech Company",
-    role: "Frontend Developer",
-    period: "2022 — 2024",
-    location: "Chiang Rai",
-    summary:
-      "Owned the frontend of an internal platform and acted as the bridge between the design and backend teams.",
-    highlights: [
-      "Built a design system shared across four products",
-      "Nearly halved pipeline build times",
-      "Shipped full i18n support for English and Thai",
-    ],
-  },
-  {
     company: "Mae Fah Luang University",
-    role: "B.Eng. Computer Engineering",
-    period: "2018 — 2022",
-    location: "Chiang Rai",
-    summary: "Computer engineering, with a final-year project on web systems.",
-    highlights: ["Graduated with an A on the final project", "Teaching assistant for intro programming"],
+    role: "B.Eng. Software Engineering",
+    period: "2023 — Present",
+    location: "",
+    summary: "Third year, currently taking Emerging Technology for Software Engineering.",
+    // TODO: swap these for the coursework and results you actually want to show
+    highlights: [
+      "Built MFU News as a course final project, React front end on a Java service",
+      "Coursework across web development, databases and software engineering practice",
+    ],
   },
 ];
 
@@ -207,7 +166,7 @@ export const navItems = [
   { no: "01", label: "Work", href: "#work" },
   { no: "02", label: "About", href: "#about" },
   { no: "03", label: "Capabilities", href: "#capabilities" },
-  { no: "04", label: "Experience", href: "#experience" },
+  { no: "04", label: "Education", href: "#experience" },
   { no: "05", label: "Contact", href: "#contact" },
 ];
 

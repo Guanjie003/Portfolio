@@ -24,10 +24,12 @@ export default function Hero() {
           {profile.tagline}
         </p>
         <div
-          className="reveal label flex gap-6 text-muted md:col-span-3 md:justify-end"
+          className="reveal label flex gap-6 md:col-span-3 md:justify-end"
           style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
         >
-          <span>{profile.location}</span>
+          <a href={`mailto:${profile.email}`} className="text-muted transition-colors hover:text-ink">
+            Get in touch ↗
+          </a>
         </div>
       </div>
     </section>

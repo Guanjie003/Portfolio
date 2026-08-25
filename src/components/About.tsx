@@ -21,15 +21,11 @@ export default function About() {
             style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
           >
             {profile.facts.map((fact) => (
-              <div key={fact.label} className="flex items-baseline justify-between border-t border-line py-3.5">
+              <div key={fact.label} className="flex items-baseline justify-between border-t border-line py-3.5 last:border-b">
                 <dt className="label text-muted">{fact.label}</dt>
                 <dd className="text-lg">{fact.value}</dd>
               </div>
             ))}
-            <div className="flex items-baseline justify-between border-y border-line py-3.5">
-              <dt className="label text-muted">Based in</dt>
-              <dd className="text-lg">{profile.location}</dd>
-            </div>
           </dl>
         </div>
       </div>

@@ -18,7 +18,6 @@ const personSchema = {
   jobTitle: profile.role,
   email: `mailto:${profile.email}`,
   url: siteUrl,
-  address: { "@type": "PostalAddress", addressLocality: profile.location },
   sameAs: socials.filter((s) => s.href.startsWith("http")).map((s) => s.href),
   knowsAbout: projects.flatMap((p) => p.stack),
 };

@@ -21,18 +21,34 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 4, textTransform: "uppercase" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 22,
+            letterSpacing: 4,
+            textTransform: "uppercase",
+          }}
+        >
           <span>{profile.role}</span>
-          <span>{profile.location}</span>
-        </div>
-
-        <div style={{ display: "flex", fontSize: 220, fontWeight: 700, letterSpacing: -12, lineHeight: 0.85 }}>
-          {profile.fullName}
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, borderTop: "1px solid #0a0a0a", paddingTop: 20 }}>
-          <span>{profile.email}</span>
           <span>{profile.availability}</span>
+        </div>
+
+        <div style={{ display: "flex", fontSize: 210, fontWeight: 700, letterSpacing: -12, lineHeight: 0.85 }}>
+          {profile.displayName}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 24,
+            borderTop: "1px solid #0a0a0a",
+            paddingTop: 20,
+          }}
+        >
+          <span>{profile.email}</span>
+          <span>github.com/Guanjie003</span>
         </div>
       </div>
     ),
