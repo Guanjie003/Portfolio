@@ -42,3 +42,4 @@ next-env.d.ts
 
 # เก็บ lockfile ไว้ (รีโปแม่ ignore ไฟล์นี้ทิ้ง)
 !package-lock.json
+!.env.example
