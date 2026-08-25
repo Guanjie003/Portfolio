@@ -1,8 +1,7 @@
 /**
  * ✏️ The only file you need to edit to change the whole site.
  *
- * Anything marked TODO is a guess drawn from the GitHub repos and course work —
- * read it, correct it, then delete the marker.
+ * Anything still marked TODO is a guess — read it, correct it, then delete the marker.
  */
 
 export type Social = {
@@ -57,7 +56,7 @@ export const profile = {
   facts: [
     { label: "Focus", value: "Full-stack web" },
     { label: "Studying", value: "SE at MFU" },
-    { label: "Core stack", value: "React / Java" },
+    { label: "Core stack", value: "TypeScript" },
     { label: "Languages", value: "EN / TH" },
   ],
 } as const;
@@ -67,43 +66,41 @@ export const statement = ["Design.", "Code.", "Deploy."];
 
 export const socials: Social[] = [
   { label: "GitHub", href: "https://github.com/Guanjie003", handle: "Guanjie003" },
-  // TODO: add your real LinkedIn URL, or delete this entry
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-handle", handle: "your-handle" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/guan-jie-eng/", handle: "guan-jie-eng" },
   { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
 ];
 
-// TODO: confirm this list — it is inferred from what the repos actually use
 export const skillGroups: SkillGroup[] = [
   {
-    name: "Frontend",
-    items: ["JavaScript", "TypeScript", "React", "Vue", "Next.js", "Tailwind CSS"],
+    name: "Languages",
+    items: ["TypeScript", "JavaScript", "Python", "Java"],
   },
   {
-    name: "Backend",
-    items: ["Java", "Spring Boot", "Node.js", "REST APIs", "MySQL"],
+    name: "Web",
+    items: ["Next.js", "React", "Vue", "Nuxt", "NestJS", "FastAPI", "Node.js", "Tailwind"],
   },
   {
-    name: "Design",
-    items: ["Figma", "Design systems", "Wireframing", "Accessibility"],
+    name: "Data",
+    items: ["PostgreSQL", "MongoDB", "Supabase", "Firebase"],
   },
   {
-    name: "Tools",
-    items: ["Git", "GitHub", "Maven", "Docker", "Vercel"],
+    name: "ML & Infra",
+    items: ["PyTorch", "Hugging Face", "Docker", "GitLab CI", "Nginx", "Git"],
   },
 ];
 
 /** Ticker that runs between sections. */
 export const marqueeItems = [
-  "JavaScript",
   "TypeScript",
-  "React",
-  "Vue",
+  "Python",
   "Next.js",
-  "Java",
-  "Spring Boot",
-  "Figma",
-  "Git",
-  "Tailwind",
+  "React",
+  "NestJS",
+  "FastAPI",
+  "PostgreSQL",
+  "Supabase",
+  "PyTorch",
+  "Docker",
 ];
 
 /**
@@ -129,9 +126,9 @@ export const projects: Project[] = [];
 export const jobs: Job[] = [
   {
     company: "Mae Fah Luang University",
-    role: "B.Eng. Software Engineering",
+    role: "B.Eng. in Software Engineering",
     period: "2023 — Present",
-    location: "",
+    location: "Chiang Rai, Thailand",
     summary: "Third year, currently taking Emerging Technology for Software Engineering.",
     // TODO: swap these for the coursework and results you actually want to show
     highlights: [
