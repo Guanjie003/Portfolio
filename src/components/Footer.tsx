@@ -38,6 +38,11 @@ export default function Footer() {
                 </a>
               </li>
             ))}
+            <li>
+              <a href={profile.resumeUrl} className="text-sm transition-opacity hover:opacity-60">
+                Resume
+              </a>
+            </li>
           </ul>
         </div>
       </div>

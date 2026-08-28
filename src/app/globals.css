@@ -194,11 +194,15 @@ body {
    zero-area intersection rect, which would stop any observer from ever firing. */
 .reveal-mask {
   overflow: hidden;
-  padding-bottom: 0.08em;
 }
 
 .reveal-mask > * {
   display: block;
+  /* Room for descenders. A line-height below 1 puts the line box above the glyph
+     bottoms, so overflow: hidden would slice through g, j, q and friends. The
+     padding sits on the child so the em resolves against the display font size
+     rather than the mask's inherited 16px. */
+  padding-bottom: 0.2em;
   transform: translateY(105%);
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);

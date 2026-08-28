@@ -9,7 +9,7 @@ export default function Statement() {
           {statement.map((word, i) => (
             <span
               key={word}
-              className="reveal-mask block"
+              className="reveal-mask -mb-[0.2em] block"
               style={{ "--reveal-delay": `${i * 140}ms` } as React.CSSProperties}
             >
               <span>{word}</span>
